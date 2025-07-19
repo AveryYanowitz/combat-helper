@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.tools.dnd.util.DndUtils;
 
-public class SimpleTest {
+public class DndUtilsTest {
 
     @Test
     public void scoresToModifiers() {

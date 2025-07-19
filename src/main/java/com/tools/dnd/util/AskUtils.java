@@ -1,0 +1,57 @@
+package com.tools.dnd.util;
+
+import java.util.Scanner;
+
+public class AskUtils {
+    
+    public static boolean getYesNo(String prompt) {
+        String answer = getString(prompt + " (Y/N)").toLowerCase();
+        if (answer.equals("y")) {
+            return true;
+        }
+        if (answer.equals("n")) {
+            return false;
+        }
+        System.out.println("Sorry, couldn't understand that!");
+        return getYesNo(prompt);
+    }
+
+    @SuppressWarnings("resource")
+    public static String getString(String prompt) {
+        Scanner in = new Scanner(System.in);
+        System.out.println(prompt+" ");
+        return in.nextLine();
+    }
+
+    public static String[] getArray(String prompt) {
+        String answer = getString(prompt+" (Enter comma-separated list.)");
+        if (answer.contains(",")) {
+            return answer.split(",");
+        }
+        return new String[] {answer};
+    }
+
+    public static int getInt(String prompt) {
+        String answer = getString(prompt);
+        try {
+            return Integer.parseInt(answer);
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, couldn't understand that!");
+            return getInt(prompt);
+        }
+    }
+
+    public static Integer getInt(String prompt, String exception, int sentinelValue) {
+        String answer = getString(prompt);
+        if (answer.equals(exception)) {
+            return sentinelValue;
+        }
+        try {
+            return Integer.parseInt(answer);
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, couldn't understand that!");
+            return getInt(prompt, exception, sentinelValue);
+        }
+    }
+
+}
