@@ -1,0 +1,331 @@
+Stat Block Name,Init,Dex,HP,Vulnerabilities,Resistances,Immunities,Per-Round Healing,Spell Slots (;-delimited),Recharge (;-delimited),Other Actions,Other Passives,Legendary
+Ancient Brass Dragon,0,10,297,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Vampire,4,18,144,,necrotic,,20,,,,Check stat block for passives!,3;3
+Skeleton,2,14,13,bludgeoning,,poison,0,,,,Check stat block for passives!,0;0
+Mage,2,14,40,,,,0,4;3;3;3;1,,,Check stat block for passives!,0;0Awakened Shrub,-1,8,10,fire,piercing,,0,,,,Check stat block for passives!,0;0
+Baboon,2,14,3,,,,0,,,,Check stat block for passives!,0;0
+Badger,0,11,3,,,,0,,,,Check stat block for passives!,0;0
+Bat,2,15,1,,,,0,,,,Check stat block for passives!,0;0
+Cat,2,15,2,,,,0,,,,Check stat block for passives!,0;0
+Commoner,0,10,4,,,,0,,,,Check stat block for passives!,0;0
+Crab,0,11,2,,,,0,,,,Check stat block for passives!,0;0
+Deer,3,16,4,,,,0,,,,Check stat block for passives!,0;0
+Eagle,2,15,3,,,,0,,,,Check stat block for passives!,0;0
+Frog,1,13,1,,,,0,,,,Check stat block for passives!,0;0
+Giant Fire Beetle,0,10,4,,,,0,,,,Check stat block for passives!,0;0
+Goat,0,10,4,,,,0,,,,Check stat block for passives!,0;0
+Hawk,3,16,1,,,,0,,,,Check stat block for passives!,0;0
+Homunculus,2,15,5,,,poison,0,,,,Check stat block for passives!,0;0
+Hyena,1,13,5,,,,0,,,,Check stat block for passives!,0;0
+Jackal,2,15,3,,,,0,,,,Check stat block for passives!,0;0
+Lemure,-3,5,13,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Lizard,0,11,2,,,,0,,,,Check stat block for passives!,0;0
+Octopus,2,15,3,,,,0,,,,Check stat block for passives!,0;0
+Owl,1,13,1,,,,0,,,,Check stat block for passives!,0;0
+Quipper,3,16,1,,,,0,,,,Check stat block for passives!,0;0
+Rat,0,11,1,,,,0,,,,Check stat block for passives!,0;0
+Raven,2,14,1,,,,0,,,,Check stat block for passives!,0;0
+Scorpion,0,11,1,,,,0,,,,Check stat block for passives!,0;0
+Sea Horse,1,12,1,,,,0,,,,Check stat block for passives!,0;0
+Shrieker,-5,1,13,,,,0,,,,Check stat block for passives!,0;0
+Spider,2,14,1,,,,0,,,,Check stat block for passives!,0;0
+Vulture,0,10,5,,,,0,,,,Check stat block for passives!,0;0
+Weasel,3,16,1,,,,0,,,,Check stat block for passives!,0;0
+Bandit,1,12,11,,,,0,,,,Check stat block for passives!,0;0
+Blood Hawk,2,14,7,,,,0,,,,Check stat block for passives!,0;0
+Camel,-1,8,15,,,,0,,,,Check stat block for passives!,0;0
+Cultist,1,12,9,,,,0,,,,Check stat block for passives!,0;0
+Flying Snake,4,18,5,,,,0,,,,Check stat block for passives!,0;0
+Giant Crab,2,15,13,,,,0,,,,Check stat block for passives!,0;0
+Giant Rat,2,15,7,,,,0,,,,Check stat block for passives!,0;0
+Giant Weasel,3,16,9,,,,0,,,,Check stat block for passives!,0;0
+Guard,1,12,11,,,,0,,,,Check stat block for passives!,0;0
+Kobold,2,15,5,,,,0,,,,Check stat block for passives!,0;0
+Mastiff,2,14,5,,,,0,,,,Check stat block for passives!,0;0
+Merfolk,1,13,11,,,,0,,,,Check stat block for passives!,0;0
+Mule,0,10,11,,,,0,,,,Check stat block for passives!,0;0
+Noble,1,12,9,,,,0,,,,Check stat block for passives!,0;0
+Poisonous Snake,3,16,2,,,,0,,,,Check stat block for passives!,0;0
+Pony,0,10,11,,,,0,,,,Check stat block for passives!,0;0
+Stirge,3,16,2,,,,0,,,,Check stat block for passives!,0;0
+Tribal Warrior,0,11,11,,,,0,,,,Check stat block for passives!,0;0
+Acolyte,0,10,9,,,,0,3,,,Check stat block for passives!,0;0
+Axe Beak,1,12,19,,,,0,,,,Check stat block for passives!,0;0
+Blink Dog,3,17,22,,,,0,,4;5;6,,Check stat block for passives!,0;0
+Boar,0,11,11,,,,0,,,,Check stat block for passives!,0;0
+Constrictor Snake,2,14,13,,,,0,,,,Check stat block for passives!,0;0
+Draft Horse,0,10,19,,,,0,,,,Check stat block for passives!,0;0
+Dretch,0,11,18,,cold;fire;lightning,poison,0,,,,Check stat block for passives!,0;0
+"Elf, Drow",2,14,13,,,,0,,,,Check stat block for passives!,0;0
+Elk,0,10,13,,,,0,,,,Check stat block for passives!,0;0
+Flying Sword,2,15,17,,,poison;psychic,0,,,,Check stat block for passives!,0;0
+Giant Badger,0,10,13,,,,0,,,,Check stat block for passives!,0;0
+Giant Bat,3,16,22,,,,0,,,,Check stat block for passives!,0;0
+Giant Centipede,2,14,4,,,,0,,,,Check stat block for passives!,0;0
+Giant Frog,1,13,18,,,,0,,,,Check stat block for passives!,0;0
+Giant Lizard,1,12,19,,,,0,,,,Check stat block for passives!,0;0
+Giant Owl,2,15,19,,,,0,,,,Check stat block for passives!,0;0
+Giant Poisonous Snake,4,18,11,,,,0,,,,Check stat block for passives!,0;0
+Giant Wolf Spider,3,16,11,,,,0,,,,Check stat block for passives!,0;0
+Goblin,2,14,7,,,,0,,,,Check stat block for passives!,0;0
+Grimlock,1,12,11,,,,0,,,,Check stat block for passives!,0;0
+Panther,2,15,13,,,,0,,,,Check stat block for passives!,0;0
+Pseudodragon,2,15,7,,,,0,,,,Check stat block for passives!,0;0
+Riding Horse,0,10,13,,,,0,,,,Check stat block for passives!,0;0
+Sprite,4,18,2,,,,0,,,,Check stat block for passives!,0;0
+Steam Mephit,0,11,21,,,fire;poison,0,,6,,Check stat block for passives!,0;0
+Swarm of Bats,2,15,22,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Swarm of Rats,0,11,24,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Swarm of Ravens,2,14,24,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Violet Fungus,-5,1,18,,,,0,,,,Check stat block for passives!,0;0
+Wolf,2,15,11,,,,0,,,,Check stat block for passives!,0;0
+Zombie,-2,6,22,,,poison,0,,,,Check stat block for passives!,0;0
+Ape,2,14,19,,,,0,,,,Check stat block for passives!,0;0
+Black Bear,0,10,19,,,,0,,,,Check stat block for passives!,0;0
+Cockatrice,1,12,27,,,,0,,,,Check stat block for passives!,0;0
+Crocodile,0,10,19,,,,0,,,,Check stat block for passives!,0;0
+Darkmantle,1,12,22,,,,0,,,,Check stat block for passives!,0;0
+Dust Mephit,2,14,17,fire,,poison,0,,6,,Check stat block for passives!,0;0
+Giant Goat,0,11,19,,,,0,,,,Check stat block for passives!,0;0
+Giant Sea Horse,2,15,16,,,,0,,,,Check stat block for passives!,0;0
+Giant Wasp,2,14,13,,,,0,,,,Check stat block for passives!,0;0
+Gnoll,1,12,22,,,,0,,,,Check stat block for passives!,0;0
+"Gnome, Deep (Svirfneblin)",2,14,16,,,,0,,,,Check stat block for passives!,0;0
+Gray Ooze,-2,6,22,,acid;cold;fire,,0,,,,Check stat block for passives!,0;0
+Hobgoblin,1,12,11,,,,0,,,,Check stat block for passives!,0;0
+Ice Mephit,1,13,21,bludgeoning;fire,,cold;poison,0,,6,,Check stat block for passives!,0;0
+Lizardfolk,0,10,22,,,,0,,,,Check stat block for passives!,0;0
+Magma Mephit,1,12,22,cold,,fire;poison,0,,6,,Check stat block for passives!,0;0
+Magmin,2,15,9,,fire,0,,,,Check stat block for passives!,0;0
+Orc,1,12,15,,,,0,,,,Check stat block for passives!,0;0
+Reef Shark,1,13,22,,,,0,,,,Check stat block for passives!,0;0
+Rust Monster,1,12,27,,,,0,,,,Check stat block for passives!,0;0
+Sahuagin,0,11,22,,,,0,,,,Check stat block for passives!,0;0
+Satyr,3,16,31,,,,0,,,,Check stat block for passives!,0;0
+Scout,2,14,16,,,,0,,,,Check stat block for passives!,0;0
+Shadow,2,14,16,radiant,acid;cold;fire;lightning;thunder,necrotic;poison,0,,,,Check stat block for passives!,0;0
+Swarm of Insects,1,13,22,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Thug,0,11,32,,,,0,,,,Check stat block for passives!,0;0
+Warhorse,1,12,19,,,,0,,,,Check stat block for passives!,0;0
+Warhorse Skeleton,1,12,22,bludgeoning,,poison,0,,,,Check stat block for passives!,0;0
+Worg,1,13,26,,,,0,,,,Check stat block for passives!,0;0
+Animated Armor,0,11,33,,,poison;psychic,0,,,,Check stat block for passives!,0;0
+Brass Dragon Wyrmling,0,10,16,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Brown Bear,0,10,34,,,,0,,,,Check stat block for passives!,0;0
+Bugbear,2,14,27,,,,0,,,,Check stat block for passives!,0;0
+Copper Dragon Wyrmling,1,12,22,,,acid,0,,5;6,,Check stat block for passives!,0;0
+Death Dog,2,14,39,,,,0,,,,Check stat block for passives!,0;0
+Dire Wolf,2,15,37,,,,0,,,,Check stat block for passives!,0;0
+Dryad,1,12,22,,,,0,,,,Check stat block for passives!,0;0
+Duergar,0,11,26,,poison,,0,,,,Check stat block for passives!,0;0
+Ghoul,2,15,22,,,poison,0,,,,Check stat block for passives!,0;0
+Giant Eagle,3,17,26,,,,0,,,,Check stat block for passives!,0;0
+Giant Hyena,2,14,45,,,,0,,,,Check stat block for passives!,0;0
+Giant Octopus,1,13,52,,,,0,,,,Check stat block for passives!,0;0
+Giant Spider,3,16,26,,,,0,,5;6,,Check stat block for passives!,0;0
+Giant Toad,1,13,39,,,,0,,,,Check stat block for passives!,0;0
+Giant Vulture,0,10,22,,,,0,,,,Check stat block for passives!,0;0
+Harpy,1,13,38,,,,0,,,,Check stat block for passives!,0;0
+Hippogriff,1,13,19,,,,0,,,,Check stat block for passives!,0;0
+Imp,3,17,10,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Lion,2,15,26,,,,0,,,,Check stat block for passives!,0;0
+Quasit,3,17,7,,cold;fire;lightning,poison,0,,,,Check stat block for passives!,0;0
+Specter,2,14,22,,acid;cold;fire;lightning;thunder,necrotic;poison,0,,,,Check stat block for passives!,0;0
+Spy,2,15,27,,,,0,,,,Check stat block for passives!,0;0
+Swarm of Quippers,3,16,28,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Tiger,2,15,37,,,,0,,,,Check stat block for passives!,0;0
+Ankheg,0,11,39,,,,0,,6,,Check stat block for passives!,0;0
+Awakened Tree,-2,6,59,fire,bludgeoning;piercing,,0,,,,Check stat block for passives!,0;0
+Azer,1,12,39,,,fire;poison,0,,,,Check stat block for passives!,0;0
+Bandit Captain,3,16,65,,,,0,,,,Check stat block for passives!,0;0
+Berserker,1,12,67,,,,0,,,,Check stat block for passives!,0;0
+Black Dragon Wyrmling,2,14,33,,,acid,0,,5;6,,Check stat block for passives!,0;0
+Bronze Dragon Wyrmling,0,10,32,,,lightning,0,,5;6,,Check stat block for passives!,0;0
+Centaur,2,14,45,,,,0,,,,Check stat block for passives!,0;0
+Cult Fanatic,2,14,33,,,,0,4;3,,,Check stat block for passives!,0;0
+Druid,1,12,27,,,,0,,,,Check stat block for passives!,0;0
+Ettercap,2,15,44,,,,0,,5;6,,Check stat block for passives!,0;0
+Gargoyle,0,11,52,,poison,0,,,,Check stat block for passives!,0;0
+Gelatinous Cube,-4,3,84,,,,0,,,,Check stat block for passives!,0;0
+Ghast,3,17,36,,necrotic,poison,0,,,,Check stat block for passives!,0;0
+Giant Boar,0,10,42,,,,0,,,,Check stat block for passives!,0;0
+Giant Constrictor Snake,2,14,60,,,,0,,,,Check stat block for passives!,0;0
+Giant Elk,3,16,42,,,,0,,,,Check stat block for passives!,0;0
+Gibbering Mouther,-1,8,67,,,,0,,5;6,,Check stat block for passives!,0;0
+Green Dragon Wyrmling,1,12,38,,,poison,0,,5;6,,Check stat block for passives!,0;0
+Grick,2,14,27,,,0,,,,Check stat block for passives!,0;0
+Griffon,2,15,59,,,,0,,,,Check stat block for passives!,0;0
+Hunter Shark,1,13,45,,,,0,,,,Check stat block for passives!,0;0
+Merrow,0,10,45,,,,0,,,,Check stat block for passives!,0;0
+Mimic,1,12,58,,,acid,0,,,,Check stat block for passives!,0;0
+Minotaur Skeleton,0,11,67,bludgeoning,,poison,0,,,,Check stat block for passives!,0;0
+Ochre Jelly,-2,6,45,,acid,lightning;slashing,0,,,,Check stat block for passives!,0;0
+Ogre,-1,8,59,,,,0,,,,Check stat block for passives!,0;0
+Ogre Zombie,-2,6,85,,,poison,0,,,,Check stat block for passives!,0;0
+Pegasus,2,15,59,,,,0,,,,Check stat block for passives!,0;0
+Plesiosaurus,2,15,68,,,,0,,,,Check stat block for passives!,0;0
+Polar Bear,0,10,42,,,,0,,,,Check stat block for passives!,0;0
+Priest,0,10,27,,,,0,4;3;2,,,Check stat block for passives!,0;0
+Rhinoceros,-1,8,45,,,,0,,,,Check stat block for passives!,0;0
+Rug of Smothering,2,14,33,,,poison;psychic,0,,,,Check stat block for passives!,0;0
+Saber-Toothed Tiger,2,14,52,,,,0,,,,Check stat block for passives!,0;0
+Sea Hag,1,13,52,,,,0,,,,Check stat block for passives!,0;0
+Silver Dragon Wyrmling,0,10,45,,,cold,0,,5;6,,Check stat block for passives!,0;0
+Swarm of Poisonous Snakes,4,18,36,,bludgeoning;piercing;slashing,,0,,,,Check stat block for passives!,0;0
+Wererat,2,15,33,,,0,,,,Check stat block for passives!,0;0
+White Dragon Wyrmling,0,10,32,,,cold,0,,5;6,,Check stat block for passives!,0;0
+Will-o'-Wisp,9,28,22,,acid;cold;fire;necrotic;thunder,,0,,,,Check stat block for passives!,0;0
+Basilisk,-1,8,52,,,,0,,,,Check stat block for passives!,0;0
+Bearded Devil,2,15,52,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Blue Dragon Wyrmling,0,10,52,,,lightning,0,,5;6,,Check stat block for passives!,0;0
+Doppelganger,4,18,52,,,,0,,,,Check stat block for passives!,0;0
+Giant Scorpion,1,13,52,,,,0,,,,Check stat block for passives!,0;0
+Gold Dragon Wyrmling,2,14,60,,,fire,0,,,,Check stat block for passives!,0;0
+Green Hag,1,12,82,,,,0,,,,Check stat block for passives!,0;0
+Hell Hound,1,12,45,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Killer Whale,0,10,90,,,,0,,,,Check stat block for passives!,0;0
+Knight,0,11,52,,,,0,,,,Check stat block for passives!,0;0
+Manticore,3,16,68,,,,0,,,,Check stat block for passives!,0;0
+Minotaur,0,11,76,,,,0,,,,Check stat block for passives!,0;0
+Mummy,-1,8,58,fire,necrotic;poison,0,,,,Check stat block for passives!,0;0
+Nightmare,2,15,68,,,fire,0,,,,Check stat block for passives!,0;0
+Owlbear,1,12,59,,,,0,,,,Check stat block for passives!,0;0
+Phase Spider,2,15,32,,,,0,,,,Check stat block for passives!,0;0
+Veteran,1,13,58,,,,0,,,,Check stat block for passives!,0;0
+Werewolf,1,13,58,,,0,,,,Check stat block for passives!,0;0
+Wight,2,14,45,,necrotic,poison,0,,,,Check stat block for passives!,0;0
+Winter Wolf,1,13,75,,,cold,0,,5;6,,Check stat block for passives!,0;0
+Black Pudding,-3,5,85,,,acid;cold;lightning;slashing,0,,,,Check stat block for passives!,0;0
+Chuul,0,10,93,,,poison,0,,,,Check stat block for passives!,0;0
+Couatl,5,20,97,,radiant,psychic,0,,,,Check stat block for passives!,0;0
+Elephant,-1,9,76,,,,0,,,,Check stat block for passives!,0;0
+Ettin,-1,8,85,,,,0,,,,Check stat block for passives!,0;0
+Ghost,1,13,45,,acid;fire;lightning;thunder,cold;necrotic;poison,0,,6,,Check stat block for passives!,0;0
+Lamia,1,13,97,,,,0,,,,Check stat block for passives!,0;0
+Red Dragon Wyrmling,0,10,75,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Succubus/Incubus,3,17,66,,cold;fire;lightning;poison,,0,,,,Check stat block for passives!,0;0
+Wereboar,0,10,78,,,0,,,,Check stat block for passives!,0;0
+Weretiger,2,15,120,,,0,,,,Check stat block for passives!,0;0
+Air Elemental,5,20,90,,lightning;thunder,poison,0,,4;5;6,,Check stat block for passives!,0;0
+Barbed Devil,3,17,110,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Bulette,0,11,94,,,,0,,,,Check stat block for passives!,0;0
+Earth Elemental,-1,8,126,thunder,poison,0,,,,Check stat block for passives!,0;0
+Fire Elemental,3,17,102,,fire;poison,0,,,,Check stat block for passives!,0;0
+Flesh Golem,-1,9,93,,,lightning;poison,0,,,,Check stat block for passives!,0;0
+Giant Crocodile,-1,9,85,,,,0,,,,Check stat block for passives!,0;0
+Giant Shark,0,11,126,,,,0,,,,Check stat block for passives!,0;0
+Gladiator,2,15,112,,,,0,,,,Check stat block for passives!,0;0
+Gorgon,0,11,114,,,,0,,5;6,,Check stat block for passives!,0;0
+Half-Red Dragon Veteran,1,13,65,,fire,,0,,5;6,,Check stat block for passives!,0;0
+Hill Giant,-1,8,105,,,,0,,,,Check stat block for passives!,0;0
+Night Hag,2,15,112,,cold;fire,,0,,,,Check stat block for passives!,0;0
+Otyugh,0,11,114,,,,0,,,,Check stat block for passives!,0;0
+Roper,-1,8,93,,,,0,,,,Check stat block for passives!,0;0
+Salamander,2,14,90,cold,fire,0,,,,Check stat block for passives!,0;0
+Shambling Mound,-1,8,136,,cold;fire,lightning,0,,,,Check stat block for passives!,0;0
+Triceratops,-1,9,95,,,,0,,,,Check stat block for passives!,0;0
+Troll,1,13,84,,,,10,,,,Check stat block for passives!,0;0
+Unicorn,2,14,67,,,poison,0,,,,Check stat block for passives!,0;0
+Vampire Spawn,3,16,82,,necrotic,,10,,,,Check stat block for passives!,0;0
+Water Elemental,2,14,114,,acid,poison,0,,4;5;6,,Check stat block for passives!,0;0
+Werebear,0,10,135,,,0,,,,Check stat block for passives!,0;0
+Wraith,3,16,67,,acid;cold;fire;lightning;thunder,necrotic;poison,0,,,,Check stat block for passives!,0;0
+Xorn,0,10,73,,,0,,,,Check stat block for passives!,0;0
+Chimera,0,11,114,,,,0,,5;6,,Check stat block for passives!,0;0
+Drider,3,16,123,,,,0,,,,Check stat block for passives!,0;0
+Invisible Stalker,4,19,104,,poison,0,,,,Check stat block for passives!,0;0
+Mammoth,-1,9,126,,,,0,,,,Check stat block for passives!,0;0
+Medusa,2,15,127,,,,0,,,,Check stat block for passives!,0;0
+Vrock,2,15,104,,cold;fire;lightning,poison,0,,6,,Check stat block for passives!,0;0
+Wyvern,0,10,110,,,,0,,,,Check stat block for passives!,0;0
+Young Brass Dragon,0,10,110,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Young White Dragon,0,10,133,,,cold,0,,5;6,,Check stat block for passives!,0;0
+Giant Ape,2,14,157,,,,0,,,,Check stat block for passives!,0;0
+Oni,0,11,110,,,,10,,,,Check stat block for passives!,0;0
+Shield Guardian,-1,8,142,,,poison,10,,,,Check stat block for passives!,0;0
+Stone Giant,2,15,126,,,,0,,,,Check stat block for passives!,0;0
+Young Black Dragon,2,14,127,,,acid,0,,5;6,,Check stat block for passives!,0;0
+Young Copper Dragon,1,12,119,,,acid,0,,5;6,,Check stat block for passives!,0;0
+Assassin,3,16,78,,poison,,0,,,,Check stat block for passives!,0;0
+Chain Devil,2,15,85,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Cloaker,2,15,78,,,,0,,,,Check stat block for passives!,0;0
+Frost Giant,-1,9,138,,,cold,0,,,,Check stat block for passives!,0;0
+Hezrou,3,17,136,,cold;fire;lightning,poison,0,,,,Check stat block for passives!,0;0
+Hydra,1,12,172,,,,0,,,,Check stat block for passives!,0;0
+Spirit Naga,3,17,75,,,poison,0,4;3;3;3;2,,,Check stat block for passives!,0;0
+Tyrannosaurus Rex,0,10,136,,,,0,,,,Check stat block for passives!,0;0
+Young Bronze Dragon,0,10,142,,,lightning,0,,5;6,,Check stat block for passives!,0;0
+Young Green Dragon,1,12,136,,,poison,0,,5;6,,Check stat block for passives!,0;0
+Bone Devil,3,16,142,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Clay Golem,-1,9,133,,,acid;poison;psychic,0,,5;6,,Check stat block for passives!,0;0
+Cloud Giant,0,10,200,,,,0,,,,Check stat block for passives!,0;0
+Fire Giant,-1,9,162,,,fire,0,,,,Check stat block for passives!,0;0
+Glabrezu,2,15,157,,cold;fire;lightning,poison,0,,,,Check stat block for passives!,0;0
+Treant,-1,8,138,fir,,,0,,,,Check stat block for passives!,0;0
+Young Blue Dragon,0,10,152,,,lightning,0,,5;6,,Check stat block for passives!,0;0
+Young Silver Dragon,0,10,168,,,cold,0,,5;6,,Check stat block for passives!,0;0
+Aboleth,-1,9,135,,,,0,,,,Check stat block for passives!,0;0
+Deva,4,18,136,,radiant,,0,,,,Check stat block for passives!,0;0
+Guardian Naga,4,18,127,,,poison,0,4;3;3;3;2;1,,,Check stat block for passives!,0;0
+Stone Golem,-1,9,178,,,poison;psychic,0,,5;6,,Check stat block for passives!,0;0
+Young Gold Dragon,2,14,178,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Young Red Dragon,0,10,178,,,fire,0,,5;6,,Check stat block for passives!,0;0
+Behir,3,16,168,,,lightning,0,,5;6,,Check stat block for passives!,0;0
+Djinni,2,15,161,,,lightning;thunder,0,,,,Check stat block for passives!,0;0
+Efreeti,1,12,200,,,fire,0,,,,Check stat block for passives!,0;0
+Gynosphinx,2,15,136,,psychic,0,4;3;3;3;1,,,Check stat block for passives!,0;0
+Horned Devil,3,17,148,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Remorhaz,1,13,195,,,cold;fire,0,,,,Check stat block for passives!,0;0
+Roc,0,10,248,,,,0,,,,Check stat block for passives!,0;0
+Archmage,2,14,99,,,,0,4;3;3;3;3;1;1;1;1;,,,Check stat block for passives!,0;0
+Erinyes,3,16,153,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Adult Brass Dragon,0,10,172,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Adult White Dragon,0,10,200,,,cold,0,,5;6,,Check stat block for passives!,3;3
+Nalfeshnee,0,10,184,,cold;fire;lightning,poison,0,,5;6,,Check stat block for passives!,0;0
+Rakshasa,3,17,110,piercing from magic weapons wielded by good creatures,,0,,,,Check stat block for passives!,0;0
+Storm Giant,2,14,230,,cold,lightning;thunder,0,,5;6,,Check stat block for passives!,0;0
+Adult Black Dragon,2,14,195,,,acid,0,,5;6,,Check stat block for passives!,3;3
+Adult Copper Dragon,1,12,184,,,acid,0,,5;6,,Check stat block for passives!,3;3
+Ice Devil,2,14,180,,cold;fire;poison,0,,6,,Check stat block for passives!,0;0
+Adult Bronze Dragon,0,10,212,,,lightning,0,,5;6,,Check stat block for passives!,3;3
+Adult Green Dragon,1,12,207,,,poison,0,,5;6,,Check stat block for passives!,3;3
+Mummy Lord,0,10,97,fire,,necrotic;poison,0,4;3;3;3;2;1,,,Check stat block for passives!,0;0
+Purple Worm,-2,7,247,,,,0,,,,Check stat block for passives!,0;0
+Adult Blue Dragon,0,10,225,,,lightning,0,,5;6,,Check stat block for passives!,3;3
+Adult Silver Dragon,0,10,243,,,cold,0,,5;6,,Check stat block for passives!,3;3
+Iron Golem,-1,9,210,,,fire;poison;psychic,0,,6,,Check stat block for passives!,0;0
+Marilith,5,20,189,,cold;fire;lightning,poison,0,,,,Check stat block for passives!,0;0
+Planetar,5,20,200,,radiant,,0,,,,Check stat block for passives!,0;0
+Adult Gold Dragon,2,14,256,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Adult Red Dragon,0,10,256,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Androsphinx,0,10,199,,,psychic,0,4;3;3;3;2;1,,,Check stat block for passives!,0;0
+Dragon Turtle,0,10,341,,fire,,0,,5;6,,Check stat block for passives!,0;0
+Balor,2,15,262,,cold;lightning,fire;poison,0,,,,Check stat block for passives!,0;0
+Ancient White Dragon,0,10,333,,,cold,0,,5;6,,Check stat block for passives!,3;3
+Pit Fiend,2,14,300,,cold,fire;poison,0,,,,Check stat block for passives!,0;0
+Ancient Black Dragon,2,14,367,,,acid,0,,5;6,,Check stat block for passives!,3;3
+Ancient Copper Dragon,1,12,350,,,acid,0,,5;6,,Check stat block for passives!,3;3
+Lich,3,16,135,,cold;lightning;necrotic,poison,0,4;3;3;3;3;1;1;1;1;,,,Check stat block for passives!,3;3
+Solar,6,22,243,,radiant,necrotic;poison,0,,,,Check stat block for passives!,0;0
+Ancient Bronze Dragon,0,10,444,,,lightning,0,,5;6,,Check stat block for passives!,3;3
+Ancient Green Dragon,1,12,385,,,poison,0,,5;6,,Check stat block for passives!,3;3
+Ancient Blue Dragon,0,10,481,,,lightning,0,,5;6,,Check stat block for passives!,3;3
+Ancient Silver Dragon,0,10,487,,,cold,0,,5;6,,Check stat block for passives!,3;3
+Kraken,0,11,472,,,lightning,0,,,,Check stat block for passives!,0;0
+Ancient Gold Dragon,2,14,546,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Ancient Red Dragon,0,10,546,,,fire,0,,5;6,,Check stat block for passives!,3;3
+Tarrasque,0,11,676,,,fire;poison,0,,,,Check stat block for passives!,3;3
+Phantom Warrior,0,11,45,,,cold; necrotic; poison,0,,,{},,0;0
+Deathlock Wight,2,14,37,,necrotic,poison,0,,,{'Fear': 1, 'Hold Person': 1},,0;0
+Infected Elder Brain,0,10,189,,,,0,,5;6,{},,0;0
+Mind Flayer,1,12,71,,,,0,,5;6,{'Dominate Monster': 1, 'Plane Shift': 1},,0;0
+Hierophant of the Comet,1,13,153,,psychic,,0,,6,{'Dimension Door': 1, 'Mass Suggestion': 1, ""Comet's Voice"": 1},,0;0
+Doomguard Doom Lord,1,12,202,,,necrotic,0,,,{}," Aura of Doom. Any creature that starts its turn within 10 feet of the doom lord must make a DC 16 Constitution saving throw, taking 18 (4d8) necrotic damage on a failed save, or half as much damage on a successful one. If the doom lord doesn't have the incapacitated condition, it can suppress or resume this aura at the start of its turn (no action required).",0;0
+Asteria,5,21,195,,,poison,0,,4;5;6,{'Bless': 2, 'Freedom of Movement': 2, 'Greater Restoration': 2, 'Plane Shift (self)': 2, 'Protection from Evil and Good': 2, 'Revivify': 2}," Guardian Aura. Whenever a creature of Asteria's choice within 30 feet of her makes a saving throw, Asteria can give the creature advantage on the saving throw (no action required). This trait doesn't function if Asteria has the incapacitated condition.",3;3
+Awakened Shrub,-1,8,10,fire,piercing,,0,,,,Check stat block for passives!,0;0
+Sable Elf Hierophant,1,13,90,,,,0,,,{'Voice of Hecate': 1, 'Dispel Magic': 2, 'Lightning Bolt': 2, 'Mage Armor': 2, 'Web': 2, 'Banishment': 1, ""Evard's Black Tentacles"": 1, 'Fire Shield': 1, 'Hypnotic Pattern': 1, 'Teleportation Circle': 1},Fey Ancestry,0;0
+Githyanki Supreme Commander,3,17,187,,,,0,,,{'Levitate': 3, 'Nondetection': 3, ""Bigby's Hand"": 1, 'Mass Suggestion': 1, 'Plane Shift': 1, 'Telekinesis': 1},REACTION: Parry,3;3
+Rustchoked Iron Golem,-2,7,170,,fire,poison; psychic,0,,,{'Golemcraft Ward': 1},"Flame-Softened: After fire damage, loses resistances until start of next turn. \n Screeching Halt: When misses atk, creatures in 30 ft that can hear must make DC 10 concentration checks",0;0
+Drow House Captain,4,19,162,,,,0,,,{'Darkness': 1, 'Faerie Fire': 1},,0;0
+War Priest,0,10,117,,,,0,,4;5;6,{'banishment': 1, ' command': 1, ' dispel magic': 1, ' flame strike': 1, ' guardian of faith': 1, ' hold person': 1, ' lesser restoration': 1, ' revivify': 1},,0;0
+Nightwalker,4,19,337,,acid; cold; fire; lightning; thunder,necrotic; poison,0,,6,{},Annihilating Aura,0;0
