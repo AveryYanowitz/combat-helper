@@ -1,4 +1,4 @@
-Stat Block Name,Init,Dex,HP,Vulnerabilities,Resistances,Immunities,Per-Round Healing,Spell Slots (;-delimited),Recharge (;-delimited),Other Actions,Other Passives,Legendary
+Name,Init,Dex,HP,Vulnerabilities,Resistances,Immunities,Per-Round Healing,Spell Slots (;-delimited),Recharge (;-delimited),Other Actions,Other Passives,Legendary
 Ancient Brass Dragon,0,10,297,,,fire,0,,5;6,,Check stat block for passives!,3;3
 Vampire,4,18,144,,necrotic,,20,,,,Check stat block for passives!,3;3
 Skeleton,2,14,13,bludgeoning,,poison,0,,,,Check stat block for passives!,0;0

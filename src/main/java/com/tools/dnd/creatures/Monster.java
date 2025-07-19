@@ -229,7 +229,7 @@ public class Monster extends Creature {
         _checkRecharge();
         _checkActions();
         _autoheal();
-        if (getMaxValue(_spellSlots) > 0) {
+        if (_maxEntry(_spellSlots) > 0) {
             while (true) {
                 int slotLevel = getInt("Input slot level used, or 'Enter' to stop:","",-1);
                 if (slotLevel == -1) {
@@ -247,14 +247,14 @@ public class Monster extends Creature {
         return _getDamage();
     }
 
-    private int getMaxValue(int[] a) {
-        int min = Integer.MAX_VALUE;
+    private int _maxEntry(int[] a) {
+        int max = Integer.MIN_VALUE;
         for (int num : a) {
-            if (num < min) {
-                min = num;
+            if (num > max) {
+                max = num;
             }
         }
-        return min;
+        return max;
     }
 
 }

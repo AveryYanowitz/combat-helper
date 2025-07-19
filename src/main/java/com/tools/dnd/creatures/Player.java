@@ -1,7 +1,14 @@
 package com.tools.dnd.creatures;
 
+import static com.tools.dnd.util.AskUtils.getArray;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
 import java.util.Map;
 
+import com.opencsv.bean.CsvToBeanBuilder;
 import com.tools.dnd.util.AskUtils;
 
 import lombok.Getter;
@@ -45,6 +52,21 @@ public class Player extends Creature {
         // We have not returned false yet, so we're alive
         _dead = false;
         return true;
+    }
+
+    public static List<Player> createParty(String campaignName) throws IllegalStateException, FileNotFoundException {
+        String[] absentPeople = getArray("Who's missing?");
+        for (int i = 0; i < absentPeople.length; i++) {
+            absentPeople[i] = absentPeople[i].strip();
+        }
+        return _playersFromCampaign(campaignName, absentPeople);
+    }
+
+    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) 
+                                    throws IllegalStateException, FileNotFoundException {
+        List<Player> beans = new CsvToBeanBuilder<Player>(new FileReader(new File("src/main/resources/party_list.csv")))
+                            .withType(Player.class).build().parse();
+        return beans;
     }
     
 }

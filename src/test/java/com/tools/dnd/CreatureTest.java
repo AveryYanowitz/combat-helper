@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.tools.dnd.creatures.Monster;
 
-public class MonsterTest {
+public class CreatureTest {
     private Monster monster;
 
     @BeforeEach
@@ -21,7 +21,7 @@ public class MonsterTest {
         // Test that temp HP works
         assertEquals(25, monster.getCurrentHp());
         monster.setTempHp(5);
-        monster.changeHp(5);
+        monster.changeHp(-5);
         assertEquals(25, monster.getCurrentHp());
         assertEquals(0, monster.getTempHp());
 

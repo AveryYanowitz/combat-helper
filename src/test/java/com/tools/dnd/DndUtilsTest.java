@@ -1,6 +1,10 @@
 package com.tools.dnd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +28,22 @@ public class DndUtilsTest {
             int expectedModifier = modifiers[i];
             assertEquals(expectedModifier, DndUtils.scoreToModifier(score));
         }
+    }
+
+    @Test
+    public void diceRolling() {
+        List<Integer> d8results = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            d8results.add(DndUtils.rollDice(1, 8));
+        }
+        assertTrue(d8results.contains(1));
+        assertTrue(d8results.contains(2));
+        assertTrue(d8results.contains(3));
+        assertTrue(d8results.contains(4));
+        assertTrue(d8results.contains(5));
+        assertTrue(d8results.contains(6));
+        assertTrue(d8results.contains(7));
+        assertTrue(d8results.contains(8));
     }
 
 }

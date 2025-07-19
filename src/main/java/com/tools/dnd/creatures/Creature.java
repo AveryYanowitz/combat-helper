@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.opencsv.bean.CsvBindByName;
 import com.tools.dnd.util.AskUtils;
 
 import lombok.Getter;
@@ -15,9 +16,13 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(prefix = "_")
 public abstract class Creature {
+    @CsvBindByName(column = "Name", required = true)
     protected final String _NAME;
+    @CsvBindByName(column = "Dex", required = true)
+    protected final int _DEX;
+    
+    protected final int _INITIATIVE;
     protected Set<String> _conditions;
-    protected final int _DEX, _INITIATIVE;
     protected boolean _dead;
 
     protected Creature(String name, int dex, int initiative) {
