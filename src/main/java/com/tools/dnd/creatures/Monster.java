@@ -11,6 +11,8 @@ import static com.tools.dnd.util.AskUtils.getString;
 import static com.tools.dnd.util.AskUtils.getYesNo;
 
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.creatures.Enums.DamageResponse;
+import com.tools.dnd.creatures.Enums.DamageType;
 import com.tools.dnd.util.CsvUtils;
 import com.tools.dnd.util.DndUtils;
 
@@ -22,24 +24,18 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(prefix = "_")
 public class Monster extends Creature {
-    static enum DamageResponse {
-        VULNERABILITIES,
-        RESISTANCES,
-        IMMUNITIES
-    }
-
     private String _statBlockName;
     private final int _INIT_BONUS, _MAX_HP, _AUTO_HEAL, _MAX_LEGENDARY_ACTIONS;
     private int _currentHp, _tempHp, _legendaryActions, _legendaryResistances;
     private boolean[] _recharge;
     private int[] _spellSlots;
     private Map<String, Integer> _perDayActions;
-    private Map<DamageResponse, String[]> _damageResponses;
+    private Map<DamageResponse, DamageType[]> _damageResponses;
     private boolean _bloodied;
     private final String _PASSIVES;
 
     public Monster(String statBlockName, String _displayName, int initBonus, int dex,
-                    int hp, int autoheal, Map<DamageResponse, String[]> damages,
+                    int hp, int autoheal, Map<DamageResponse, DamageType[]> damages,
                     boolean[] recharge, int[] spellSlots, Map<String, Integer> perDayActions,
                     String passives, int legendaryActions, int legendaryResistances) {
         super(_displayName, dex, _rollInit(initBonus, _displayName));
@@ -47,10 +43,10 @@ public class Monster extends Creature {
         _INIT_BONUS = initBonus;
         _MAX_HP = _currentHp = hp;
         _AUTO_HEAL = autoheal;
-        _damageResponses = damages;
-        _recharge = recharge;
-        _spellSlots = spellSlots;
-        _perDayActions = perDayActions;
+        _damageResponses = (damages != null) ? damages    : new HashMap<>();
+        _recharge = (recharge != null)       ? recharge   : new boolean[] {false, false, false, false, false, false};
+        _spellSlots = (spellSlots != null)   ? spellSlots : new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        _perDayActions = (perDayActions != null) ? perDayActions : new HashMap<>();
         _PASSIVES = passives;
         _MAX_LEGENDARY_ACTIONS = _legendaryActions = legendaryActions;
         _legendaryResistances = legendaryResistances;
@@ -176,7 +172,6 @@ public class Monster extends Creature {
                 sb.append("\n");
             }
         }
-        System.out.println(sb.toString());
     }
 
     @Override
@@ -264,6 +259,37 @@ public class Monster extends Creature {
         return max;
     }
 
+    public DamageResponse getResponseTo(DamageType type) {
+        for (DamageType v : getVulnerabilities()) {
+            if (type == v) {
+                return DamageResponse.VULNERABLE;
+            }
+        }
+        for (DamageType r : getResistances()) {
+            if (type == r) {
+                return DamageResponse.RESISTANT;
+            }            
+        }
+        for (DamageType i : getImmunities()) {
+            if (type == i) {
+                return DamageResponse.IMMUNE;
+            }            
+        }
+        return DamageResponse.NORMAL;
+    }
+
+    public DamageType[] getVulnerabilities() {
+        return _damageResponses.get(DamageResponse.VULNERABLE);
+    }
+
+    public DamageType[] getResistances() {
+        return _damageResponses.get(DamageResponse.RESISTANT);
+    }
+
+    public DamageType[] getImmunities() {
+        return _damageResponses.get(DamageResponse.IMMUNE);
+    }
+
     // Legendary
     public static List<Monster> monstersFromName(Map<String, Integer> namesAndNumbers) 
                                                             throws IOException, CsvException {
@@ -271,17 +297,17 @@ public class Monster extends Creature {
                                                     0, namesAndNumbers.keySet());
         List<Monster> monsters = new ArrayList<>();                                            
         for (List<String> row : rows) {
-            String statBlockName = row.get(0);
-            int initBonus = Integer.parseInt(row.get(1));
-            int dex = Integer.parseInt(row.get(2));
-            int hp = Integer.parseInt(row.get(3));
-            Map<DamageResponse,String[]> damageResponses = _getDamageResponses(row);            
-            int autoheal = Integer.parseInt(row.get(7));
-            int[] spellSlots = _getSlots(row.get(8));
-            boolean[] recharge = _getRecharge(row.get(9));
-            Map<String, Integer> perDayActions = _getActions(row.get(10));
-            String passives = row.get(11);
-            int[] legendaries = _getLegendaries(row.get(12));
+            String statBlockName = row.get(0).trim();
+            int initBonus = Integer.parseInt(row.get(1).trim());
+            int dex = Integer.parseInt(row.get(2).trim());
+            int hp = Integer.parseInt(row.get(3).trim());
+            Map<DamageResponse,DamageType[]> damageResponses = _getDamageResponses(row);            
+            int autoheal = Integer.parseInt(row.get(7).trim());
+            int[] spellSlots = _getSlots(row.get(8).trim());
+            boolean[] recharge = _getRecharge(row.get(9).trim());
+            Map<String, Integer> perDayActions = _getActions(row.get(10).trim());
+            String passives = row.get(11).trim();
+            int[] legendaries = _getLegendaries(row.get(12).trim());
             int legendaryActions = legendaries[0];
             int legendaryResistances = legendaries[1];
 
@@ -307,11 +333,22 @@ public class Monster extends Creature {
 
     }
 
-    private static Map<DamageResponse,String[]> _getDamageResponses(List<String> row) {
-        Map<DamageResponse,String[]> damageMap = new HashMap<>();
-        damageMap.put(DamageResponse.VULNERABILITIES, row.get(4).split(";"));
-        damageMap.put(DamageResponse.RESISTANCES, row.get(5).split(";"));
-        damageMap.put(DamageResponse.IMMUNITIES, row.get(6).split(";"));
+    private static Map<DamageResponse,DamageType[]> _getDamageResponses(List<String> row) {
+        Map<DamageResponse,DamageType[]> damageMap = new HashMap<>();
+        int col = 4;
+        for (DamageResponse val : DamageResponse.values()) {
+            if (val == DamageResponse.NORMAL) {
+                continue;
+            }
+            String[] rawString = row.get(col).split(";");
+            DamageType[] damageTypes = new DamageType[rawString.length];
+            for (int i = 0; i < rawString.length; i++) {
+                damageTypes[i] = Enums.evaluateType(rawString[i]);
+            }
+
+            damageMap.put(val, damageTypes);
+            col++;
+        }
         return damageMap;
     }
 
@@ -370,7 +407,7 @@ public class Monster extends Creature {
         String[] recharges = rechargeString.split(";");
         for (String num : recharges) {
             try {
-                int index = Integer.parseInt(num);
+                int index = Integer.parseInt(num) - 1;
                 recharge[index] = true;
             } catch (NumberFormatException e) { // if empty string
                 break;

@@ -6,10 +6,10 @@ public class AskUtils {
     
     public static boolean getYesNo(String prompt) {
         String answer = getString(prompt + " (Y/N)").toLowerCase();
-        if (answer.equals("y")) {
+        if (answer.toLowerCase().equals("y")) {
             return true;
         }
-        if (answer.equals("n")) {
+        if (answer.toLowerCase().equals("n")) {
             return false;
         }
         System.out.println("Sorry, couldn't understand that!");
@@ -19,8 +19,8 @@ public class AskUtils {
     @SuppressWarnings("resource")
     public static String getString(String prompt) {
         Scanner in = new Scanner(System.in);
-        System.out.println(prompt+" ");
-        return in.nextLine();
+        System.out.print(prompt+" ");
+        return in.next();
     }
 
     public static String[] getArray(String prompt) {

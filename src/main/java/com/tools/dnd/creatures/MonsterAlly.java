@@ -2,10 +2,13 @@ package com.tools.dnd.creatures;
 
 import java.util.Map;
 
+import com.tools.dnd.creatures.Enums.DamageResponse;
+import com.tools.dnd.creatures.Enums.DamageType;
+
 public class MonsterAlly extends Monster {
 
     public MonsterAlly(String _statBlockName, String _displayName, int initBonus, int dex, int hp, int autoheal,
-            Map<DamageResponse, String[]> damages, boolean[] recharge, int[] spellSlots,
+            Map<DamageResponse, DamageType[]> damages, boolean[] recharge, int[] spellSlots,
             Map<String, Integer> perDayActions, String passives, int legendaryActions, int legendaryResistances) {
         super(_statBlockName, _displayName, initBonus, dex, hp, autoheal, damages, recharge, spellSlots, perDayActions,
                 passives, legendaryActions, legendaryResistances);

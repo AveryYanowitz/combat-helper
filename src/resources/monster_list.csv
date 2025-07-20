@@ -329,3 +329,4 @@ Rustchoked Iron Golem,-2,7,170,,fire,poison; psychic,0,,,"'Golemcraft Ward': 1",
 Drow House Captain,4,19,162,,,,0,,,"'Darkness': 1, 'Faerie Fire': 1",,0;0
 War Priest,0,10,117,,,,0,,4;5;6,"'banishment': 1, ' command': 1, ' dispel magic': 1, ' flame strike': 1, ' guardian of faith': 1, ' hold person': 1, ' lesser restoration': 1, ' revivify': 1",,0;0
 Nightwalker,4,19,337,,acid; cold; fire; lightning; thunder,necrotic; poison,0,,6,"",Annihilating Aura,0;0
+Test Monster,-2,8,5,cold,fire; acid, lightning, 5, 4;3;3;1, 5;6, "'Foo': 2, 'Bar': 1", Passive abilities go here, 3;2

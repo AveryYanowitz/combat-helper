@@ -7,11 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.creatures.Enums.DamageResponse;
+import com.tools.dnd.creatures.Enums.DamageType;
+import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.util.CsvUtils;
 import com.tools.dnd.util.DndUtils;
 
@@ -84,6 +89,28 @@ public class UtilsTests {
             assertTrue(list.contains("goo") || list.contains("hoo"));
             
         }
+    }
+
+    @Test
+    public void damageParser() {
+        Map<DamageResponse, DamageType[]> damageResponses = new HashMap<>();
+        damageResponses.put(DamageResponse.VULNERABLE, new DamageType[] {DamageType.FIRE});
+        damageResponses.put(DamageResponse.RESISTANT, new DamageType[] {DamageType.COLD, DamageType.PSYCHIC});
+        damageResponses.put(DamageResponse.IMMUNE, new DamageType[] {DamageType.BLUEBERRY});
+
+        Monster monster = new Monster("Dire Test", "Dire Test", 0, 10, 25, 
+            0, damageResponses, null, null, null, null, 0, 0);
+        
+        assertEquals(5, DndUtils.parseDamage("5", monster));
+        assertEquals(15, DndUtils.parseDamage("5, 10", monster));
+        assertEquals(5, DndUtils.parseDamage("5 acid", monster));
+        assertEquals(10, DndUtils.parseDamage("5 acid, 5 poison", monster));
+        assertEquals(10, DndUtils.parseDamage("5 fire", monster));
+        assertEquals(5, DndUtils.parseDamage("10 cold", monster));
+        assertEquals(6, DndUtils.parseDamage("6 cold, 7 psychic", monster));
+        assertEquals(0, DndUtils.parseDamage("6 blueberry", monster));
+        assertEquals(25, DndUtils.parseDamage("10 fire, 3 cold, 2 psychic, 30 blueberry, 3 acid", monster));
+
     }
 
     
