@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.tools.dnd.util.AskUtils;
@@ -64,9 +65,21 @@ public class Player extends Creature {
 
     private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) 
                                     throws IllegalStateException, FileNotFoundException {
-        List<Player> beans = new CsvToBeanBuilder<Player>(new FileReader(new File("src/main/resources/party_list.csv")))
-                            .withType(Player.class).build().parse();
-        return beans;
+        Stream<Player> beans = new CsvToBeanBuilder<Player>(new FileReader(new File("src/resources/party_list.csv")))
+                            .withType(Player.class).build().stream();
+        Stream<Player> noAbsent = beans.filter((player) -> {
+            for (String absent : absentPeople) {
+                String name = player.getNAME();
+                if (absent.equals(name)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        return noAbsent.toList();
+    }
+    public static void main(String[] args) throws IllegalStateException, FileNotFoundException {
+        createParty("Adeo");
     }
     
 }

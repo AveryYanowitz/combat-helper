@@ -3,14 +3,16 @@ package com.tools.dnd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.DndUtils;
 
-public class DndUtilsTest {
+public class UtilsTests {
 
     @Test
     public void scoresToModifiers() {
@@ -44,6 +46,6 @@ public class DndUtilsTest {
         assertTrue(d8results.contains(6));
         assertTrue(d8results.contains(7));
         assertTrue(d8results.contains(8));
-    }
+    }    
 
 }

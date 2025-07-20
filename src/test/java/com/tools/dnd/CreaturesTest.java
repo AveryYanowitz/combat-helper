@@ -1,13 +1,20 @@
 package com.tools.dnd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.tools.dnd.creatures.Monster;
+import com.tools.dnd.creatures.Player;
 
-public class CreatureTest {
+public class CreaturesTest {
     private Monster monster;
 
     @BeforeEach
@@ -40,4 +47,26 @@ public class CreatureTest {
         assertEquals(25, monster.getCurrentHp());
         assertEquals(25, monster.getMAX_HP());
     }
+
+    @Test
+    @Disabled
+    public void campaignTest() throws IllegalStateException, FileNotFoundException {
+        List<Player> party = Player.createParty("Adeo");
+        assertTrue(_nameInParty(party, "Akamu"));
+        assertTrue(_nameInParty(party, "Helios"));
+        assertTrue(_nameInParty(party, "Riley"));
+        assertTrue(_nameInParty(party, "Xena"));
+        assertFalse(_nameInParty(party, "Foobar"));
+    }
+
+    // Tests if list `party` has a field `fieldName` with value `contents`
+    private static boolean _nameInParty(List<Player> party, String name) {
+        for (Player player : party) {
+            if (player.getNAME().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
