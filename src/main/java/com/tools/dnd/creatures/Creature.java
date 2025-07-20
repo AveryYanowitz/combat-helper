@@ -15,20 +15,19 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Accessors(prefix = "_")
-public abstract class Creature {
+public abstract class Creature implements Comparable<Creature> {
     @CsvBindByName(column = "Name", required = true)
     protected final String _NAME;
     @CsvBindByName(column = "Dex", required = true)
     protected final int _DEX;
-    
-    protected final int _INITIATIVE;
+    protected final int _initiative;
     protected Set<String> _conditions;
     protected boolean _dead;
 
     protected Creature(String name, int dex, int initiative) {
         this._NAME = name;
         this._DEX = dex;
-        this._INITIATIVE = initiative;
+        this._initiative = initiative;
         this._dead = false;
         this._conditions = new TreeSet<>();
     }
@@ -94,6 +93,15 @@ public abstract class Creature {
             }
         }
         return targetsAndDamage;
+    }
+
+    @Override
+    public final int compareTo(Creature other) {
+        if (_initiative == other._initiative) {
+            return Integer.compare(_DEX, other._DEX);
+        } else {
+            return Integer.compare(_initiative, other._initiative);
+        }
     }
 
 }

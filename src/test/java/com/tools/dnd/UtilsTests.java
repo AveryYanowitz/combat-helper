@@ -1,15 +1,18 @@
 package com.tools.dnd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.tools.dnd.util.CsvParser;
+import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.util.CsvUtils;
 import com.tools.dnd.util.DndUtils;
 
 public class UtilsTests {
@@ -46,6 +49,43 @@ public class UtilsTests {
         assertTrue(d8results.contains(6));
         assertTrue(d8results.contains(7));
         assertTrue(d8results.contains(8));
-    }    
+    }
+
+    @Test
+    public void filterLinesByColTest() throws IOException, CsvException {
+        String[] names = {"Akamu", "Helios", "Riley", "Xena"};
+
+        List<List<String>> results = CsvUtils.readLinesMatchingCol("party_list.csv", 0, "Adeo");
+        assertEquals(4, results.size());
+        for (int i = 0; i < names.length; i++) {
+            List<String> csvRow = results.get(i);
+            assertEquals(3, csvRow.size());
+            assertEquals(names[i],csvRow.get(1));
+        }
+    }
+
+    @Test
+    public void excludeLinesByColTest() throws IOException, CsvException {
+        String[] row1 = {"foo","bar","baz"};
+        String[] row2 = {"goo","bar","baz"};
+        String[] row3 = {"hoo","bar","baz"};
+        List<List<String>> allRows = new ArrayList<>();
+        allRows.add(Arrays.asList(row1));
+        allRows.add(Arrays.asList(row2));
+        allRows.add(Arrays.asList(row3));
+
+
+
+        List<List<String>> filtered = CsvUtils.excludeLinesByCol(allRows, 0, new String[] {"foo"});
+        for (List<String> list : filtered) {
+            assertFalse(list.contains("foo"));
+            assertTrue(list.contains("bar"));
+            assertTrue(list.contains("baz"));
+            assertTrue(list.contains("goo") || list.contains("hoo"));
+            
+        }
+    }
+
+    
 
 }

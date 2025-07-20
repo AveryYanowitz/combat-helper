@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 
@@ -19,7 +20,7 @@ public class CreaturesTest {
 
     @BeforeEach
     public void setup() {
-        monster = new Monster("name", "name", 0, 10, 25, 
+        monster = new Monster("Dire Test", "Dire Test", 0, 10, 25, 
         5, null, null, null, null, null, 0, 0);
     }
 
@@ -50,7 +51,7 @@ public class CreaturesTest {
 
     @Test
     @Disabled
-    public void campaignTest() throws IllegalStateException, FileNotFoundException {
+    public void campaignTest() throws IllegalStateException, IOException, CsvException {
         List<Player> party = Player.createParty("Adeo");
         assertTrue(_nameInParty(party, "Akamu"));
         assertTrue(_nameInParty(party, "Helios"));

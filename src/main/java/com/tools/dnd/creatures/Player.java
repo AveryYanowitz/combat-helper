@@ -1,16 +1,16 @@
 package com.tools.dnd.creatures;
 
 import static com.tools.dnd.util.AskUtils.getArray;
+import static com.tools.dnd.util.AskUtils.getInt;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.util.AskUtils;
+import com.tools.dnd.util.CsvUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +20,13 @@ public class Player extends Creature {
     @Setter
     private boolean _dying;
 
-    protected Player(String _NAME, int dex, int initiative) {
-        super(_NAME, dex, initiative);
+    public Player(String name, int dex, int initiative) {
+        super(name, dex, initiative);
         _dying = false;
+    }
+
+    public Player(String name, int dex) {
+        this(name, dex, getInt("What is "+name+"'s initiative?"));
     }
     
 
@@ -55,7 +59,7 @@ public class Player extends Creature {
         return true;
     }
 
-    public static List<Player> createParty(String campaignName) throws IllegalStateException, FileNotFoundException {
+    public static List<Player> createParty(String campaignName) throws IllegalStateException, IOException, CsvException {
         String[] absentPeople = getArray("Who's missing?");
         for (int i = 0; i < absentPeople.length; i++) {
             absentPeople[i] = absentPeople[i].strip();
@@ -63,23 +67,20 @@ public class Player extends Creature {
         return _playersFromCampaign(campaignName, absentPeople);
     }
 
-    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) 
-                                    throws IllegalStateException, FileNotFoundException {
-        Stream<Player> beans = new CsvToBeanBuilder<Player>(new FileReader(new File("src/resources/party_list.csv")))
-                            .withType(Player.class).build().stream();
-        Stream<Player> noAbsent = beans.filter((player) -> {
-            for (String absent : absentPeople) {
-                String name = player.getNAME();
-                if (absent.equals(name)) {
-                    return false;
-                }
-            }
-            return true;
-        });
-        return noAbsent.toList();
+    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) throws IOException, CsvException {
+        List<List<String>> playersInCampaign = CsvUtils.readLinesMatchingCol("party_list.csv", 0, campaignName);
+        List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesByCol(playersInCampaign, 1, absentPeople);
+
+        List<Player> asPlayers = new ArrayList<>();
+        for (List<String> list : presentPlayersOnly) {
+            String name = list.get(1);
+            int dex = Integer.parseInt(list.get(2));
+            asPlayers.add(new Player(name, dex));
+        }
+        return asPlayers;
     }
-    public static void main(String[] args) throws IllegalStateException, FileNotFoundException {
-        createParty("Adeo");
+
+    public static void main(String[] args) throws IllegalStateException, IOException, CsvException {
+        System.out.println(createParty("Adeo"));
     }
-    
 }
