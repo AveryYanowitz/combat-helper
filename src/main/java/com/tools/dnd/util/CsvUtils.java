@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -22,13 +23,27 @@ public class CsvUtils {
      * @throws IOException 
      */
     public static List<List<String>> readLinesMatchingCol(String filename, int col, String includeIfMatches) throws IOException, CsvException {
+        return readLinesMatchingCol(filename, col, List.of(includeIfMatches));
+    }
+
+    /**
+     * Searches the given CSV for the given Strings in the given column
+     * @param filename The name of the file, which must be in src/resources
+     * @param col The column to search (zero-indexed)
+     * @param includeIfMatches All accepted column values
+     * @return A list containing all the matching rows, each of which is a list of the column values
+     * @throws CsvException 
+     * @throws IOException 
+     */
+
+    public static List<List<String>> readLinesMatchingCol(String filename, int col, Collection<String> includeIfMatches) throws IOException, CsvException {
         File csv = new File("src/resources/"+filename);
         try (CSVReader reader = new CSVReader(new FileReader(csv))) {
             List<String[]> rows = reader.readAll();
             List<List<String>> filtered = new ArrayList<>();
-
+            
             for (String[] row : rows) {
-                if (row[col].equals(includeIfMatches)) {
+                if (includeIfMatches.contains(row[col])) {
                     filtered.add(Arrays.asList(row));
                 }
             }
@@ -44,7 +59,7 @@ public class CsvUtils {
      * @return A new list with only the rows whose <code>col</code>th String is not <code>excludeIfMatches</code> 
      *         (as defined by the <code>String.equals()</code> method)
      */
-    public static List<List<String>> excludeLinesByCol(List<List<String>> csvList, int col, String[] excludeIfIn) {
+    public static List<List<String>> excludeLinesMatchingCol(List<List<String>> csvList, int col, String[] excludeIfIn) {
         List<String> excluList = Arrays.asList(excludeIfIn);
         return csvList.stream()
                     .filter((row) -> !excluList.contains(row.get(col)))

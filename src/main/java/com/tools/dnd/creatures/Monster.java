@@ -1,10 +1,17 @@
 package com.tools.dnd.creatures;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.tools.dnd.util.AskUtils.getInt;
+import static com.tools.dnd.util.AskUtils.getString;
 import static com.tools.dnd.util.AskUtils.getYesNo;
 
+import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.util.CsvUtils;
 import com.tools.dnd.util.DndUtils;
 
 import lombok.Getter;
@@ -21,7 +28,7 @@ public class Monster extends Creature {
         IMMUNITIES
     }
 
-    private String __statBlockName;
+    private String _statBlockName;
     private final int _INIT_BONUS, _MAX_HP, _AUTO_HEAL, _MAX_LEGENDARY_ACTIONS;
     private int _currentHp, _tempHp, _legendaryActions, _legendaryResistances;
     private boolean[] _recharge;
@@ -31,12 +38,12 @@ public class Monster extends Creature {
     private boolean _bloodied;
     private final String _PASSIVES;
 
-    public Monster(String _statBlockName, String _displayName, int initBonus, int dex,
+    public Monster(String statBlockName, String _displayName, int initBonus, int dex,
                     int hp, int autoheal, Map<DamageResponse, String[]> damages,
                     boolean[] recharge, int[] spellSlots, Map<String, Integer> perDayActions,
                     String passives, int legendaryActions, int legendaryResistances) {
         super(_displayName, dex, _rollInit(initBonus, _displayName));
-        __statBlockName = _statBlockName;
+        _statBlockName = statBlockName;
         _INIT_BONUS = initBonus;
         _MAX_HP = _currentHp = hp;
         _AUTO_HEAL = autoheal;
@@ -255,6 +262,129 @@ public class Monster extends Creature {
             }
         }
         return max;
+    }
+
+    // Legendary
+    public static List<Monster> monstersFromName(Map<String, Integer> namesAndNumbers) 
+                                                            throws IOException, CsvException {
+        List<List<String>> rows = CsvUtils.readLinesMatchingCol("monster_list.csv", 
+                                                    0, namesAndNumbers.keySet());
+        List<Monster> monsters = new ArrayList<>();                                            
+        for (List<String> row : rows) {
+            String statBlockName = row.get(0);
+            int initBonus = Integer.parseInt(row.get(1));
+            int dex = Integer.parseInt(row.get(2));
+            int hp = Integer.parseInt(row.get(3));
+            Map<DamageResponse,String[]> damageResponses = _getDamageResponses(row);            
+            int autoheal = Integer.parseInt(row.get(7));
+            int[] spellSlots = _getSlots(row.get(8));
+            boolean[] recharge = _getRecharge(row.get(9));
+            Map<String, Integer> perDayActions = _getActions(row.get(10));
+            String passives = row.get(11);
+            int[] legendaries = _getLegendaries(row.get(12));
+            int legendaryActions = legendaries[0];
+            int legendaryResistances = legendaries[1];
+
+            String[] aliases = new String[namesAndNumbers.get(statBlockName)];
+            if (getYesNo("Give nickname(s) to "+statBlockName+"?")) {
+                for (int i = 0; i < aliases.length; i++) {
+                    aliases[i] = getString("Alias for "+statBlockName+" "+(i+1)+":");
+                }
+            } else {
+                for (int i = 0; i < aliases.length; i++) {
+                    aliases[i] = statBlockName + " " + (i + 1);
+                }
+            }
+
+            for (String alias : aliases) {
+                monsters.add(new Monster(statBlockName, alias, initBonus, dex, 
+                                        hp, autoheal, damageResponses, 
+                                        recharge, spellSlots, perDayActions, 
+                                        passives, legendaryActions, legendaryResistances));
+            }
+        }
+        return monsters;
+
+    }
+
+    private static Map<DamageResponse,String[]> _getDamageResponses(List<String> row) {
+        Map<DamageResponse,String[]> damageMap = new HashMap<>();
+        damageMap.put(DamageResponse.VULNERABILITIES, row.get(4).split(";"));
+        damageMap.put(DamageResponse.RESISTANCES, row.get(5).split(";"));
+        damageMap.put(DamageResponse.IMMUNITIES, row.get(6).split(";"));
+        return damageMap;
+    }
+
+    private static Map<String, Integer> _getActions(String entryToParse) {
+        Map<String, Integer> actions = new HashMap<>();
+        if (entryToParse.equals("") || entryToParse.equals("\"\"")) {
+            return actions;
+        }
+        int i = 0;
+        int max = entryToParse.length();
+        StringBuilder sb = new StringBuilder();
+        boolean inString = false;
+        while (i < max) {
+            char ch = entryToParse.charAt(i++);
+            if (ch == '\'') {
+                inString = !inString; // either we've entered or exited a name
+            } else if (inString) {
+                sb.append(ch);
+            } else if (ch == ':') {
+                String name = sb.toString();
+                sb = new StringBuilder();
+
+                i++; // skip the space
+                while (i < max && entryToParse.charAt(i) != ',') {
+                    sb.append(entryToParse.charAt(i));
+                    i++;
+                }
+                int num = Integer.parseInt(sb.toString());
+                actions.put(name, num);
+
+                i += 2; // advance past comma and space
+                sb = new StringBuilder();
+            } else {
+                throw new IllegalArgumentException("Failed to parse string "+entryToParse+" at char "+i);
+            }
+        }
+        return actions;
+    }
+
+    private static int[] _getSlots(String slotString) {
+        int[] spellSlots = new int[9];
+        String[] slotStringSplit = slotString.split(";");
+        for (int i = 0; i < slotStringSplit.length; i++) {
+            String slotNum = slotStringSplit[i];
+            try {
+                spellSlots[i] = Integer.parseInt(slotNum);
+            } catch (NumberFormatException e) { // if empty string
+                break;
+            }
+        }
+        return spellSlots;
+    }
+
+    private static boolean[] _getRecharge(String rechargeString) {
+        boolean[] recharge = new boolean[6];
+        String[] recharges = rechargeString.split(";");
+        for (String num : recharges) {
+            try {
+                int index = Integer.parseInt(num);
+                recharge[index] = true;
+            } catch (NumberFormatException e) { // if empty string
+                break;
+            }
+        }
+        return recharge;
+    }
+
+    private static int[] _getLegendaries(String legendaryString) {
+        int[] legendaries = new int[2];
+        String[] legends = legendaryString.split(";");
+        legendaries[0] = Integer.parseInt(legends[0]);
+        legendaries[1] = Integer.parseInt(legends[1]);
+        return legendaries;
     }
 
 }

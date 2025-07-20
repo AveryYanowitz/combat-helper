@@ -69,7 +69,7 @@ public class Player extends Creature {
 
     private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) throws IOException, CsvException {
         List<List<String>> playersInCampaign = CsvUtils.readLinesMatchingCol("party_list.csv", 0, campaignName);
-        List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesByCol(playersInCampaign, 1, absentPeople);
+        List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesMatchingCol(playersInCampaign, 1, absentPeople);
 
         List<Player> asPlayers = new ArrayList<>();
         for (List<String> list : presentPlayersOnly) {
@@ -80,7 +80,4 @@ public class Player extends Creature {
         return asPlayers;
     }
 
-    public static void main(String[] args) throws IllegalStateException, IOException, CsvException {
-        System.out.println(createParty("Adeo"));
-    }
 }

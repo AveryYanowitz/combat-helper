@@ -1,9 +1,9 @@
 package com.tools.dnd.creatures;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import com.opencsv.bean.CsvBindByName;
 import com.tools.dnd.util.AskUtils;
@@ -29,7 +29,7 @@ public abstract class Creature implements Comparable<Creature> {
         this._DEX = dex;
         this._initiative = initiative;
         this._dead = false;
-        this._conditions = new TreeSet<>();
+        this._conditions = new HashSet<>();
     }
 
     @Override
@@ -83,7 +83,7 @@ public abstract class Creature implements Comparable<Creature> {
      * @return A mapping of target names to the damage dealt to them
      */
     protected final Map<String, String> _getDamage() {
-        Map<String, String> targetsAndDamage = new TreeMap<>();
+        Map<String, String> targetsAndDamage = new HashMap<>();
         String[] targets = AskUtils.getArray("Input target (or 'Enter' if none)");
         if (!targets[0].equals("")) {
             for (String target : targets) {

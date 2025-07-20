@@ -70,4 +70,18 @@ public class CreaturesTest {
         return false;
     }
 
+    // Commented out because Monster.getActions() is private now,
+    // and I already verified this works,
+    // but I want to keep it for posterity
+    // @Test
+    // public void monsterParseTest() {
+    //     String s = "'Ability 1': 1, 'Ability 2': 2, 'Ability 3': 10";
+    //     Map<String, Integer> map;
+    //     map = Monster.getActions(s);
+    //     assertEquals(1, map.get("Ability 1"));
+    //     assertEquals(2, map.get("Ability 2"));
+    //     assertEquals(10, map.get("Ability 3"));
+    //     assertEquals(null, map.get("Does Not Exist"));
+    // }
+
 }

@@ -76,7 +76,7 @@ public class UtilsTests {
 
 
 
-        List<List<String>> filtered = CsvUtils.excludeLinesByCol(allRows, 0, new String[] {"foo"});
+        List<List<String>> filtered = CsvUtils.excludeLinesMatchingCol(allRows, 0, new String[] {"foo"});
         for (List<String> list : filtered) {
             assertFalse(list.contains("foo"));
             assertTrue(list.contains("bar"));
