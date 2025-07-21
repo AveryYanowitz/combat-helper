@@ -1,16 +1,10 @@
 package com.tools.dnd.creatures;
 
-import static com.tools.dnd.util.AskUtils.getArray;
 import static com.tools.dnd.util.AskUtils.getInt;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.util.AskUtils;
-import com.tools.dnd.util.CsvUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,27 +51,6 @@ public class Player extends Creature {
         // We have not returned false yet, so we're alive
         _dead = false;
         return true;
-    }
-
-    public static List<Player> createParty(String campaignName) throws IllegalStateException, IOException, CsvException {
-        String[] absentPeople = getArray("Who's missing?");
-        for (int i = 0; i < absentPeople.length; i++) {
-            absentPeople[i] = absentPeople[i].strip();
-        }
-        return _playersFromCampaign(campaignName, absentPeople);
-    }
-
-    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) throws IOException, CsvException {
-        List<List<String>> playersInCampaign = CsvUtils.readLinesMatchingCol("party_list.csv", 0, campaignName);
-        List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesMatchingCol(playersInCampaign, 1, absentPeople);
-
-        List<Player> asPlayers = new ArrayList<>();
-        for (List<String> list : presentPlayersOnly) {
-            String name = list.get(1);
-            int dex = Integer.parseInt(list.get(2));
-            asPlayers.add(new Player(name, dex));
-        }
-        return asPlayers;
     }
 
 }

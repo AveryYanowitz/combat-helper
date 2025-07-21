@@ -19,9 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.creatures.CreatureFactory;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
-import com.tools.dnd.creatures.Enums.DamageType;
+import com.tools.dnd.util.Enums.DamageType;
 
 public class CreaturesTest {
     private static final InputStream stdIn = System.in;
@@ -62,7 +63,7 @@ public class CreaturesTest {
     @Test
     @Disabled
     public void campaignTest() throws IllegalStateException, IOException, CsvException {
-        List<Player> party = Player.createParty("Adeo");
+        List<Player> party = CreatureFactory.createParty("Adeo");
         assertTrue(_nameInParty(party, "Akamu"));
         assertTrue(_nameInParty(party, "Helios"));
         assertTrue(_nameInParty(party, "Riley"));
@@ -84,36 +85,56 @@ public class CreaturesTest {
     public void createMonster() throws Exception {       
         Map<String, Integer> monsterMap = new HashMap<>();
         monsterMap.put("Test Monster", 1);
+        monsterMap.put("Commoner", 1);
 
         List<Monster> monsters = new ArrayList<>();
-        SystemLambda.withTextFromSystemIn("N").execute(() -> {
-            List<Monster> monstersTemp = Monster.monstersFromName(monsterMap);
+        SystemLambda.withTextFromSystemIn("N", "N").execute(() -> {
+            List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
             for (Monster monster : monstersTemp) {
                 monsters.add(monster);
             }
         });
 
-        Monster mon = monsters.get(0);
+        Monster commoner = monsters.get(0);
+        Monster testMon = monsters.get(1);
         
-        assertEquals("Test Monster 1", mon.getNAME());
-        assertEquals(8, mon.getDEX());
+        assertEquals("Test Monster 1", testMon.getNAME());
+        assertEquals("Commoner 1", commoner.getNAME());
+        assertEquals(8, testMon.getDEX());
+        assertEquals(10, commoner.getDEX());
+        
 
-        assertEquals(5, mon.getMAX_HP());
-        assertEquals(5, mon.getCurrentHp());
-        assertNotNull(mon.getDamageResponses());
-        assertEquals(5, mon.getAUTO_HEAL());
-        assertArrayEquals(new DamageType[] {DamageType.COLD}, mon.getVulnerabilities());
-        assertArrayEquals(new DamageType[] {DamageType.FIRE, DamageType.ACID}, mon.getResistances());
-        assertArrayEquals(new DamageType[] {DamageType.LIGHTNING}, mon.getImmunities());
+        assertEquals(5, testMon.getMAX_HP());
+        assertEquals(4, commoner.getMAX_HP());
+        assertEquals(5, testMon.getCurrentHp());
+        assertEquals(4, commoner.getMAX_HP());
+        assertEquals(5, testMon.getAUTO_HEAL());
+        assertEquals(0, commoner.getAUTO_HEAL());
+        
+        assertNotNull(testMon.getDamageResponses());
+        assertNotNull(commoner.getDamageResponses());
+        assertArrayEquals(new DamageType[] {DamageType.COLD}, testMon.getVulnerabilities());
+        assertArrayEquals(new DamageType[] {}, commoner.getVulnerabilities());
+        assertArrayEquals(new DamageType[] {DamageType.FIRE, DamageType.ACID}, testMon.getResistances());
+        assertArrayEquals(new DamageType[] {}, commoner.getResistances());
+        assertArrayEquals(new DamageType[] {DamageType.LIGHTNING}, testMon.getImmunities());
+        assertArrayEquals(new DamageType[] {}, commoner.getImmunities());
 
-        assertArrayEquals(new int[] {4,3,3,1,0,0,0,0,0}, mon.getSpellSlots());
-        assertArrayEquals(new boolean[] {false,false,false,false,true,true}, mon.getRecharge());
-        assertEquals(2, mon.getPerDayActions().get("Foo"));
-        assertEquals(1, mon.getPerDayActions().get("Bar"));
+        assertArrayEquals(new int[] {4,3,3,1,0,0,0,0,0}, testMon.getSpellSlots());
+        assertArrayEquals(new int[] {0,0,0,0,0,0,0,0,0}, commoner.getSpellSlots());
+        assertArrayEquals(new boolean[] {false,false,false,false,true,true}, testMon.getRecharge());
+        assertArrayEquals(new boolean[] {false,false,false,false,false,false}, commoner.getRecharge());
+        
+        assertEquals(2, testMon.getPerDayActions().get("Foo"));
+        assertEquals(1, testMon.getPerDayActions().get("Bar"));
 
-        assertEquals("Passive abilities go here", mon.getPASSIVES());
-        assertEquals(3, mon.getLegendaryActions());
-        assertEquals(2, mon.getLegendaryResistances());
+        assertEquals("Passive abilities go here", testMon.getPASSIVES());
+        assertEquals("", commoner.getPASSIVES());
+        assertEquals(3, testMon.getLegendaryActions());
+        assertEquals(0, commoner.getLegendaryActions());
+        assertEquals(2, testMon.getLegendaryResistances());
+        assertEquals(0, commoner.getLegendaryResistances());
+        
     }
 
     @Test
@@ -122,7 +143,7 @@ public class CreaturesTest {
         monsterMap.put("Test Monster", 1);
 
         SystemLambda.withTextFromSystemIn("Y", "alias").execute(() -> {
-            List<Monster> monstersTemp = Monster.monstersFromName(monsterMap);
+            List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
             for (Monster monster : monstersTemp) {
                 assertEquals("Test Monster", monster.getStatBlockName());
                 assertEquals("alias", monster.getNAME());

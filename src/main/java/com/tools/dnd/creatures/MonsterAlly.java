@@ -2,8 +2,8 @@ package com.tools.dnd.creatures;
 
 import java.util.Map;
 
-import com.tools.dnd.creatures.Enums.DamageResponse;
-import com.tools.dnd.creatures.Enums.DamageType;
+import com.tools.dnd.util.Enums.DamageResponse;
+import com.tools.dnd.util.Enums.DamageType;
 
 public class MonsterAlly extends Monster {
 

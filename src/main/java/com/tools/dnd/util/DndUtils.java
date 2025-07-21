@@ -1,10 +1,10 @@
 package com.tools.dnd.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-import com.tools.dnd.creatures.Monster;
-import com.tools.dnd.creatures.Enums;
-import com.tools.dnd.creatures.Enums.DamageType;
+import com.tools.dnd.util.Enums.DamageType;
 
 public class DndUtils {
     public static int scoreToModifier(int score) {
@@ -20,35 +20,31 @@ public class DndUtils {
         return total;
     }
 
-    public static int parseDamage(String damageStr, Monster target) throws NumberFormatException {
+    public static Map<DamageType, Integer> parseDamage(String damageStr) throws NumberFormatException {
         try {
-            return Integer.parseInt(damageStr);
+            return Map.of(DamageType.UNTYPED, Integer.parseInt(damageStr));
         } catch (NumberFormatException e) {
-            int total = 0;
+            Map<DamageType, Integer> map = new HashMap<>();
             for (String str : damageStr.split(",")) {
                 String[] dmg = str.trim().split(" ");
                 if (dmg.length > 1) { // if damage is typed
                     int amount = Integer.parseInt(dmg[0].trim());
                     DamageType type = Enums.evaluateType(dmg[1].trim());
-                    switch (target.getResponseTo(type)) {
-                        case VULNERABLE:
-                            amount *= 2;
-                            break;
-                        case RESISTANT:
-                            amount /= 2;
-                            break;                        
-                        case IMMUNE:
-                            amount = 0;
-                            break;
-                        default: // no special reaction
-                            break;
-                    }
-                    total += amount;
+                    _putOrAddTo(map, type, amount);
                 } else {
-                    total += Integer.parseInt(str.trim());
+                    _putOrAddTo(map, DamageType.UNTYPED, Integer.parseInt(str.trim()));
                 }
             }
-            return total;
+            return map;
+        }
+    }
+
+    private static <K> void _putOrAddTo(Map<K, Integer> mapToAdd, K key, int value) {
+        if (mapToAdd.containsKey(key)) {
+            int oldVal = mapToAdd.get(key);
+            mapToAdd.put(key, oldVal + value);
+        } else {
+            mapToAdd.put(key, value);
         }
     }
 

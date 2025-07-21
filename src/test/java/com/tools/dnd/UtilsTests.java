@@ -14,11 +14,11 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.creatures.Enums.DamageResponse;
-import com.tools.dnd.creatures.Enums.DamageType;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.util.CsvUtils;
 import com.tools.dnd.util.DndUtils;
+import com.tools.dnd.util.Enums.DamageResponse;
+import com.tools.dnd.util.Enums.DamageType;
 
 public class UtilsTests {
 
@@ -98,19 +98,45 @@ public class UtilsTests {
         damageResponses.put(DamageResponse.RESISTANT, new DamageType[] {DamageType.COLD, DamageType.PSYCHIC});
         damageResponses.put(DamageResponse.IMMUNE, new DamageType[] {DamageType.BLUEBERRY});
 
-        Monster monster = new Monster("Dire Test", "Dire Test", 0, 10, 25, 
+        Monster monster = new Monster("Dire Test", "Dire Test", 0, 10, 100, 
             0, damageResponses, null, null, null, null, 0, 0);
         
-        assertEquals(5, DndUtils.parseDamage("5", monster));
-        assertEquals(15, DndUtils.parseDamage("5, 10", monster));
-        assertEquals(5, DndUtils.parseDamage("5 acid", monster));
-        assertEquals(10, DndUtils.parseDamage("5 acid, 5 poison", monster));
-        assertEquals(10, DndUtils.parseDamage("5 fire", monster));
-        assertEquals(5, DndUtils.parseDamage("10 cold", monster));
-        assertEquals(6, DndUtils.parseDamage("6 cold, 7 psychic", monster));
-        assertEquals(0, DndUtils.parseDamage("6 blueberry", monster));
-        assertEquals(25, DndUtils.parseDamage("10 fire, 3 cold, 2 psychic, 30 blueberry, 3 acid", monster));
+        int expectedHp = 100;
 
+        monster.changeHp("5");
+        expectedHp -= 5;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("5, 10");
+        expectedHp -= 15;
+        assertEquals(expectedHp, monster.getCurrentHp());
+        
+        monster.changeHp("5 acid");
+        expectedHp -= 5;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("5 acid, 5 poison");
+        expectedHp -= 10;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("5 fire");
+        expectedHp -= 10;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("10 cold");
+        expectedHp -= 5;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("6 cold, 7 psychic");
+        expectedHp -= 6;
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("6 blueberry");
+        assertEquals(expectedHp, monster.getCurrentHp());
+
+        monster.changeHp("10 fire, 3 cold, 2 psychic, 30 blueberry, 3 acid");
+        expectedHp -= (20 + 1 + 1 + 0 + 3);
+        assertEquals(expectedHp, monster.getCurrentHp());
     }
 
     

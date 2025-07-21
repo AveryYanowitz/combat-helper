@@ -1,4 +1,4 @@
-package com.tools.dnd.creatures;
+package com.tools.dnd.util;
 
 public class Enums {
     public static enum DamageResponse {
@@ -24,10 +24,15 @@ public class Enums {
         RADIANT,
         SLASHING,
         THUNDER,
+        UNTYPED
     }
 
     public static DamageType evaluateType(String damageStr) {
-        return DamageType.valueOf(damageStr.trim().toUpperCase());
+        try {
+            return DamageType.valueOf(damageStr.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return DamageType.UNTYPED;
+        }
     }
     
 }
