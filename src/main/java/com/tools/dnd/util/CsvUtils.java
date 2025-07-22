@@ -32,8 +32,8 @@ public class CsvUtils {
      * @param col The column to search (zero-indexed)
      * @param includeIfMatches All accepted column values
      * @return A list containing all the matching rows, each of which is a list of the column values
-     * @throws CsvException 
-     * @throws IOException 
+     * @throws IOException - If bad things happen during the read
+     * @throws CsvException - If there is a failed validator
      */
 
     public static List<List<String>> readLinesMatchingCol(String filename, int col, Collection<String> includeIfMatches) throws IOException, CsvException {
@@ -66,6 +66,25 @@ public class CsvUtils {
                     .toList();
     }
 
-
+    /**
+     * Go through the entire CSV and retrieve the given column from each row
+     * @param filename The name of the CSV to search
+     * @param col The column to retrieve, zero-indexed
+     * @return A list matching the order of the CSV
+     * @throws IOException - If bad things happen during the read
+     * @throws CsvException - If there is a failed validator
+     */
+    public static List<String> getColFromAllRows(String filename, int col) throws IOException, CsvException {
+        File csv = new File("src/resources/"+filename);
+        try (CSVReader reader = new CSVReader(new FileReader(csv))) {
+            List<String[]> all = reader.readAll();
+            List<String> filtered = new ArrayList<>();;
+            
+            for (String[] row : all) {
+                filtered.add(row[col]);
+            }
+            return filtered;
+        }
+    }
 
 }

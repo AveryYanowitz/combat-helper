@@ -20,7 +20,7 @@ import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
-public class UtilsTests {
+public class OtherUtilsTests {
 
     @Test
     public void scoresToModifiers() {

@@ -2,6 +2,8 @@ package com.tools.dnd.util;
 
 import java.util.Scanner;
 
+import com.tools.dnd.util.Enums.DamageResponse;
+
 public class AskUtils {
     
     public static boolean getYesNo(String prompt) {
@@ -32,12 +34,25 @@ public class AskUtils {
     }
 
     public static int getInt(String prompt) {
-        String answer = getString(prompt);
         try {
+            String answer = getString(prompt);
             return Integer.parseInt(answer);
         } catch (NumberFormatException e) {
             System.out.println("Sorry, couldn't understand that!");
             return getInt(prompt);
+        }
+    }
+
+    public static String getIntString(String prompt) {
+        int answer = getInt(prompt);
+        return Integer.toString(answer);
+    }
+
+    public static <E extends Enum<E>> void getEnum(Class<E> clazz, String prompt) {
+        try {
+            String answer = getString(prompt);
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 

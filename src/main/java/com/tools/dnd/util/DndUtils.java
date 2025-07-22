@@ -26,13 +26,13 @@ public class DndUtils {
         } catch (NumberFormatException e) {
             Map<DamageType, Integer> map = new HashMap<>();
             for (String str : damageStr.split(",")) {
-                String[] dmg = str.trim().split(" ");
+                String[] dmg = str.strip().split(" ");
                 if (dmg.length > 1) { // if damage is typed
-                    int amount = Integer.parseInt(dmg[0].trim());
-                    DamageType type = Enums.evaluateType(dmg[1].trim());
+                    int amount = Integer.parseInt(dmg[0].strip());
+                    DamageType type = Enums.evaluateType(dmg[1].strip());
                     _putOrAddTo(map, type, amount);
                 } else {
-                    _putOrAddTo(map, DamageType.UNTYPED, Integer.parseInt(str.trim()));
+                    _putOrAddTo(map, DamageType.UNTYPED, Integer.parseInt(str.strip()));
                 }
             }
             return map;

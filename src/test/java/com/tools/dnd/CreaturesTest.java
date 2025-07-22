@@ -6,69 +6,68 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
-import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.creatures.CreatureFactory;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class CreaturesTest {
-    private static final InputStream stdIn = System.in;
-
-    @BeforeEach
-    public void setup() {
-        System.setIn(stdIn);
-    }
 
     @Test
     public void monsterHpLogic() {
-        Monster monster = new Monster("Dire Test", "Dire Test", 0, 10, 25, 
+        Monster mon = new Monster("Dire Test", "Dire Test", 0, 10, 25, 
             5, null, null, null, null, null, 0, 0);
         
         // Test that temp HP works
-        assertEquals(25, monster.getCurrentHp());
-        monster.setTempHp(5);
-        monster.changeHp(-5);
-        assertEquals(25, monster.getCurrentHp());
-        assertEquals(0, monster.getTempHp());
+        assertEquals(25, mon.getCurrentHp());
+        mon.setTempHp(5);
+        mon.changeHp(-5);
+        assertEquals(25, mon.getCurrentHp());
+        assertEquals(0, mon.getTempHp());
 
         // Test that normal damage works
-        monster.changeHp(-5);
-        assertEquals(20, monster.getCurrentHp());
-        assertEquals(25, monster.getMAX_HP());
+        mon.changeHp(-5);
+        assertEquals(20, mon.getCurrentHp());
+        assertEquals(25, mon.getMAX_HP());
         
         // Healing
-        monster.changeHp(5);
-        assertEquals(25, monster.getCurrentHp());
-        assertEquals(25, monster.getMAX_HP());
+        mon.changeHp(5);
+        assertEquals(25, mon.getCurrentHp());
+        assertEquals(25, mon.getMAX_HP());
 
         // Over-healing
-        monster.changeHp(15);
-        assertEquals(25, monster.getCurrentHp());
-        assertEquals(25, monster.getMAX_HP());
+        mon.changeHp(15);
+        assertEquals(25, mon.getCurrentHp());
+        assertEquals(25, mon.getMAX_HP());
     }
 
     @Test
-    @Disabled
-    public void campaignTest() throws IllegalStateException, IOException, CsvException {
-        List<Player> party = CreatureFactory.createParty("Adeo");
-        assertTrue(_nameInParty(party, "Akamu"));
+    public void campaignTest() throws Exception {
+        List<Player> party = new ArrayList<>();
+        SystemLambda.withTextFromSystemIn("Akamu","10","10","10").execute(() -> {
+            List<Player> partyTemp = CreatureFactory.createParty("Adeo");
+            for (Player plr : partyTemp) {
+                party.add(plr);
+            }
+        });
+
         assertTrue(_nameInParty(party, "Helios"));
         assertTrue(_nameInParty(party, "Riley"));
         assertTrue(_nameInParty(party, "Xena"));
+        assertFalse(_nameInParty(party, "Akamu"));
         assertFalse(_nameInParty(party, "Foobar"));
+
+        for (Player player : party) {
+            assertEquals(10, player.getInitiative());
+        }
     }
 
     // Tests if list `party` has a field `fieldName` with value `contents`
@@ -90,8 +89,8 @@ public class CreaturesTest {
         List<Monster> monsters = new ArrayList<>();
         SystemLambda.withTextFromSystemIn("N", "N").execute(() -> {
             List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
-            for (Monster monster : monstersTemp) {
-                monsters.add(monster);
+            for (Monster mon : monstersTemp) {
+                monsters.add(mon);
             }
         });
 
@@ -129,7 +128,7 @@ public class CreaturesTest {
         assertEquals(1, testMon.getPerDayActions().get("Bar"));
 
         assertEquals("Passive abilities go here", testMon.getPASSIVES());
-        assertEquals("", commoner.getPASSIVES());
+        assertEquals("Check stat block for passives!", commoner.getPASSIVES());
         assertEquals(3, testMon.getLegendaryActions());
         assertEquals(0, commoner.getLegendaryActions());
         assertEquals(2, testMon.getLegendaryResistances());
@@ -144,9 +143,9 @@ public class CreaturesTest {
 
         SystemLambda.withTextFromSystemIn("Y", "alias").execute(() -> {
             List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
-            for (Monster monster : monstersTemp) {
-                assertEquals("Test Monster", monster.getStatBlockName());
-                assertEquals("alias", monster.getNAME());
+            for (Monster mon : monstersTemp) {
+                assertEquals("Test Monster", mon.getStatBlockName());
+                assertEquals("alias", mon.getNAME());
             }
         });        
     }

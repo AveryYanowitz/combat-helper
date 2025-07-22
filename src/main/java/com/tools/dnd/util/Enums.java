@@ -29,7 +29,7 @@ public class Enums {
 
     public static DamageType evaluateType(String damageStr) {
         try {
-            return DamageType.valueOf(damageStr.trim().toUpperCase());
+            return DamageType.valueOf(damageStr.strip().toUpperCase());
         } catch (IllegalArgumentException e) {
             return DamageType.UNTYPED;
         }

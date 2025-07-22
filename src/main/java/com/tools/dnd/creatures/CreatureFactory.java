@@ -17,6 +17,14 @@ import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class CreatureFactory {
+    /**
+     * Create a List of Players in the given campaign, excluding absent players
+     * @param campaignName The name of the campaign
+     * @return A List of Players
+     * @throws IllegalStateException When no party members are found
+     * @throws IOException If reading in the CSV fails
+     * @throws CsvException If reading in the CSV fails
+     */
     public static List<Player> createParty(String campaignName) throws IllegalStateException, IOException, CsvException {
         String[] absentPeople = getArray("Who's missing?");
         for (int i = 0; i < absentPeople.length; i++) {
@@ -25,7 +33,8 @@ public class CreatureFactory {
         return _playersFromCampaign(campaignName, absentPeople);
     }
 
-    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) throws IOException, CsvException {
+    private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) 
+                                        throws IllegalStateException, IOException, CsvException {
         List<List<String>> playersInCampaign = CsvUtils.readLinesMatchingCol("party_list.csv", 0, campaignName);
         List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesMatchingCol(playersInCampaign, 1, absentPeople);
 
@@ -35,6 +44,9 @@ public class CreatureFactory {
             int dex = Integer.parseInt(list.get(2));
             asPlayers.add(new Player(name, dex));
         }
+        if (asPlayers.size() == 0) {
+            throw new IllegalStateException("No players found");
+        }
         return asPlayers;
     }
 
@@ -43,26 +55,27 @@ public class CreatureFactory {
      * @param namesAndNumbers A map from the monsters' names (as they appear in monster_list.csv)
      *                         to the number of each monster that's present
      * @return A list of the monsters created
+     * @throws IllegalStateException If no monsters are found
      * @throws IOException If reading in the CSV fails
      * @throws CsvException If reading in the CSV fails
      */
     public static List<Monster> monstersFromName(Map<String, Integer> namesAndNumbers) 
-                                                            throws IOException, CsvException {
+                                            throws IllegalStateException, IOException, CsvException {
         List<List<String>> rows = CsvUtils.readLinesMatchingCol("monster_list.csv", 
                                                     0, namesAndNumbers.keySet());
         List<Monster> monsters = new ArrayList<>();                                            
         for (List<String> row : rows) {
-            String statBlockName = row.get(0).trim();
-            int initBonus = Integer.parseInt(row.get(1).trim());
-            int dex = Integer.parseInt(row.get(2).trim());
-            int hp = Integer.parseInt(row.get(3).trim());
+            String statBlockName = row.get(0).strip();
+            int initBonus = Integer.parseInt(row.get(1).strip());
+            int dex = Integer.parseInt(row.get(2).strip());
+            int hp = Integer.parseInt(row.get(3).strip());
             Map<DamageResponse,DamageType[]> damageResponses = _getDamageResponses(row);            
-            int autoheal = Integer.parseInt(row.get(7).trim());
-            int[] spellSlots = _getSlots(row.get(8).trim());
-            boolean[] recharge = _getRecharge(row.get(9).trim());
-            Map<String, Integer> perDayActions = _getActions(row.get(10).trim());
-            String passives = row.get(11).trim();
-            int[] legendaries = _getLegendaries(row.get(12).trim());
+            int autoheal = Integer.parseInt(row.get(7).strip());
+            int[] spellSlots = _getSlots(row.get(8).strip());
+            boolean[] recharge = _getRecharge(row.get(9).strip());
+            Map<String, Integer> perDayActions = _getActions(row.get(10).strip());
+            String passives = row.get(11).strip();
+            int[] legendaries = _getLegendaries(row.get(12).strip());
             int legendaryActions = legendaries[0];
             int legendaryResistances = legendaries[1];
 
@@ -84,8 +97,10 @@ public class CreatureFactory {
                                         passives, legendaryActions, legendaryResistances));
             }
         }
+        if (monsters.size() == 0) {
+            throw new IllegalStateException("No monsters found");
+        }
         return monsters;
-
     }
 
     /**
@@ -100,10 +115,15 @@ public class CreatureFactory {
             if (val == DamageResponse.NORMAL) {
                 continue;
             }
-            String[] rawString = row.get(col).split(";");
-            DamageType[] damageTypes = new DamageType[rawString.length];
-            for (int i = 0; i < rawString.length; i++) {
-                damageTypes[i] = Enums.evaluateType(rawString[i]);
+            String[] splitStr = row.get(col).strip().split(";");
+            DamageType[] damageTypes;
+            if (splitStr[0].equals("")) {
+                damageTypes = new DamageType[0];
+            } else {
+                damageTypes = new DamageType[splitStr.length];
+                for (int i = 0; i < splitStr.length; i++) {
+                    damageTypes[i] = Enums.evaluateType(splitStr[i]);
+                }
             }
 
             damageMap.put(val, damageTypes);
@@ -112,17 +132,17 @@ public class CreatureFactory {
         return damageMap;
     }
 
-    private static Map<String, Integer> _getActions(String entryToParse) {
+    private static Map<String, Integer> _getActions(String actionStr) {
         Map<String, Integer> actions = new HashMap<>();
-        if (entryToParse.equals("") || entryToParse.equals("\"\"")) {
+        if (actionStr.equals("") || actionStr.equals("\"\"")) {
             return actions;
         }
         int i = 0;
-        int max = entryToParse.length();
+        int max = actionStr.length();
         StringBuilder sb = new StringBuilder();
         boolean inString = false;
         while (i < max) {
-            char ch = entryToParse.charAt(i++);
+            char ch = actionStr.charAt(i++);
             if (ch == '\'') {
                 inString = !inString; // either we've entered or exited a name
             } else if (inString) {
@@ -132,8 +152,8 @@ public class CreatureFactory {
                 sb = new StringBuilder();
 
                 i++; // skip the space
-                while (i < max && entryToParse.charAt(i) != ',') {
-                    sb.append(entryToParse.charAt(i));
+                while (i < max && actionStr.charAt(i) != ',') {
+                    sb.append(actionStr.charAt(i));
                     i++;
                 }
                 int num = Integer.parseInt(sb.toString());
@@ -142,43 +162,43 @@ public class CreatureFactory {
                 i += 2; // advance past comma and space
                 sb = new StringBuilder();
             } else {
-                throw new IllegalArgumentException("Failed to parse string "+entryToParse+" at char "+i);
+                throw new IllegalArgumentException("Failed to parse string "+actionStr+" at char "+i);
             }
         }
         return actions;
     }
 
-    private static int[] _getSlots(String slotString) {
+    private static int[] _getSlots(String slotStr) {
         int[] spellSlots = new int[9];
-        String[] slotStringSplit = slotString.split(";");
+        String[] slotStringSplit = slotStr.split(";");
         for (int i = 0; i < slotStringSplit.length; i++) {
             String slotNum = slotStringSplit[i];
             try {
                 spellSlots[i] = Integer.parseInt(slotNum);
-            } catch (NumberFormatException e) { // if empty string
+            } catch (NumberFormatException e) { // if slotStr was empty string
                 break;
             }
         }
         return spellSlots;
     }
 
-    private static boolean[] _getRecharge(String rechargeString) {
+    private static boolean[] _getRecharge(String rechargeStr) {
         boolean[] recharge = new boolean[6];
-        String[] recharges = rechargeString.split(";");
+        String[] recharges = rechargeStr.split(";");
         for (String num : recharges) {
             try {
                 int index = Integer.parseInt(num) - 1;
                 recharge[index] = true;
-            } catch (NumberFormatException e) { // if empty string
+            } catch (NumberFormatException e) { // if rechargeStr was empty string
                 break;
             }
         }
         return recharge;
     }
 
-    private static int[] _getLegendaries(String legendaryString) {
+    private static int[] _getLegendaries(String legendaryStr) {
         int[] legendaries = new int[2];
-        String[] legends = legendaryString.split(";");
+        String[] legends = legendaryStr.split(";");
         legendaries[0] = Integer.parseInt(legends[0]);
         legendaries[1] = Integer.parseInt(legends[1]);
         return legendaries;
