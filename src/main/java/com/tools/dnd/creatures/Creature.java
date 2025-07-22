@@ -98,11 +98,13 @@ public abstract class Creature implements Comparable<Creature> {
     }
 
     @Override
+    // InitList uses a TreeSet, which sorts from low to high,
+    // so we have to reverse the default Integer.compare
     public final int compareTo(Creature other) {
         if (_initiative == other._initiative) {
-            return Integer.compare(_DEX, other._DEX);
+            return Integer.compare(other._DEX, _DEX);
         } else {
-            return Integer.compare(_initiative, other._initiative);
+            return Integer.compare(other._initiative, _initiative);
         }
     }
 

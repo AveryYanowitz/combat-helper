@@ -1,6 +1,15 @@
 package com.tools.dnd.util;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+
+import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.creatures.Monster;
+import com.tools.dnd.creatures.Player;
+import com.tools.dnd.creatures.SpawnPoint;
 
 public class AskUser {
     
@@ -62,6 +71,26 @@ public class AskUser {
     public static <E extends Enum<E>> E getEnum(Class<E> clazz, String prompt) {
         String answer = getString(prompt);
         return Enums.evaluateType(clazz, answer);
+    }
+    
+    public static <K, V> Map<K, V> getMap(String keyPrompt, String valPrompt) {
+        Map<K, V> returnMap = new HashMap<>();
+        do {
+            _putMapEntry(returnMap, keyPrompt, valPrompt);
+        } while (getYesNo("Add another monster?"));
+        return returnMap;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <K, V> void _putMapEntry(Map<K, V> map, String keyPrompt, String valPrompt) {
+        try {
+            K key = (K) getString(keyPrompt);
+            V val = (V) getString(valPrompt);
+            map.put(key, val);
+        } catch (Exception e) {
+            System.out.println("Sorry, couldn't understand that!");
+            _putMapEntry(map, keyPrompt, valPrompt);
+        }
     }
 
 }

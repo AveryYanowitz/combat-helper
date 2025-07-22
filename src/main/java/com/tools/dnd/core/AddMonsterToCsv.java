@@ -18,6 +18,8 @@ import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class AddMonsterToCsv {
+
+    // Too complex to write simple unit tests, but I've verified this works
     public static void main(String[] args) throws IOException, CsvException {
         List<String> existingMonsters =  CsvParser.getColFromAllRows("monster_list.csv", 0);
         while (true) {
@@ -127,11 +129,11 @@ public class AddMonsterToCsv {
             }
         }
 
-        while (getYesNo("Add another per-day action for "+name+"?")) {
+        do {
             actionMap.put(getString("Action name:"), 
-                            getInt("Uses per day:"));
-        }
-        return mapToString(actionMap);
+                            getInt("Uses per day (0 to cancel):"));
+        } while (getYesNo("Add another per-day action?"));
+        return mapToString(actionMap, 0);
 
     }
 
@@ -144,10 +146,13 @@ public class AddMonsterToCsv {
     }
 
 
-    private static <K, V> String mapToString(Map<K,V> map) {
+    private static <K, V> String mapToString(Map<K,V> map, V cancelValue) {
         StringBuilder mapString = new StringBuilder();
         mapString.append("\"");
         for (var entry : map.entrySet()) {
+            if (entry.getValue().equals(cancelValue)) {
+                continue;
+            }
             mapString.append("'");
             mapString.append(entry.getKey());
             mapString.append("': ");
