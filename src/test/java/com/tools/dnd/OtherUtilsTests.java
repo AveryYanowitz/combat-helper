@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.creatures.Monster;
-import com.tools.dnd.util.CsvUtils;
+import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
@@ -60,7 +60,7 @@ public class OtherUtilsTests {
     public void filterLinesByColTest() throws IOException, CsvException {
         String[] names = {"Akamu", "Helios", "Riley", "Xena"};
 
-        List<List<String>> results = CsvUtils.readLinesMatchingCol("party_list.csv", 0, "Adeo");
+        List<List<String>> results = CsvParser.readLinesMatchingCol("party_list.csv", 0, "Adeo");
         assertEquals(4, results.size());
         for (int i = 0; i < names.length; i++) {
             List<String> csvRow = results.get(i);
@@ -81,7 +81,7 @@ public class OtherUtilsTests {
 
 
 
-        List<List<String>> filtered = CsvUtils.excludeLinesMatchingCol(allRows, 0, new String[] {"foo"});
+        List<List<String>> filtered = CsvParser.excludeLinesMatchingCol(allRows, 0, new String[] {"foo"});
         for (List<String> list : filtered) {
             assertFalse(list.contains("foo"));
             assertTrue(list.contains("bar"));

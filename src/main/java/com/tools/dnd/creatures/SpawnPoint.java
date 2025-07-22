@@ -6,23 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.tools.dnd.util.AskUtils.getArray;
-import static com.tools.dnd.util.AskUtils.getYesNo;
-import static com.tools.dnd.util.AskUtils.getString;
+import static com.tools.dnd.util.AskUser.getArray;
+import static com.tools.dnd.util.AskUser.getYesNo;
+import static com.tools.dnd.util.AskUser.getString;
 
 import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.util.CsvUtils;
+import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
-public class CreatureFactory {
-
-    public static void main(String[] args) throws IllegalStateException, IOException, CsvException {
-        Map<String, Integer> chadMap = Map.of("chad", 1);
-        List<Monster> chadList = monstersFromName(chadMap);
-        System.out.println(chadList.get(0));
-    }
+/** Tools for creating Monsters, Players, etc. */
+public class SpawnPoint {
 
     /**
      * Create a List of Players in the given campaign, excluding absent players
@@ -42,8 +37,8 @@ public class CreatureFactory {
 
     private static List<Player> _playersFromCampaign(String campaignName, String[] absentPeople) 
                                         throws IllegalStateException, IOException, CsvException {
-        List<List<String>> playersInCampaign = CsvUtils.readLinesMatchingCol("party_list.csv", 0, campaignName);
-        List<List<String>> presentPlayersOnly = CsvUtils.excludeLinesMatchingCol(playersInCampaign, 1, absentPeople);
+        List<List<String>> playersInCampaign = CsvParser.readLinesMatchingCol("party_list.csv", 0, campaignName);
+        List<List<String>> presentPlayersOnly = CsvParser.excludeLinesMatchingCol(playersInCampaign, 1, absentPeople);
 
         List<Player> asPlayers = new ArrayList<>();
         for (List<String> list : presentPlayersOnly) {
@@ -68,7 +63,7 @@ public class CreatureFactory {
      */
     public static List<Monster> monstersFromName(Map<String, Integer> namesAndNumbers) 
                                             throws IllegalStateException, IOException, CsvException {
-        List<List<String>> rows = CsvUtils.readLinesMatchingCol("monster_list.csv", 
+        List<List<String>> rows = CsvParser.readLinesMatchingCol("monster_list.csv", 
                                                     0, namesAndNumbers.keySet());
         List<Monster> monsters = new ArrayList<>();                                            
         for (List<String> row : rows) {

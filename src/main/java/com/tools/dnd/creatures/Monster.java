@@ -3,8 +3,8 @@ package com.tools.dnd.creatures;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tools.dnd.util.AskUtils.getInt;
-import static com.tools.dnd.util.AskUtils.getYesNo;
+import static com.tools.dnd.util.AskUser.getInt;
+import static com.tools.dnd.util.AskUser.getYesNo;
 
 import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;

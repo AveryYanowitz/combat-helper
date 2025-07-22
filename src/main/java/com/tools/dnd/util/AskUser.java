@@ -2,7 +2,7 @@ package com.tools.dnd.util;
 
 import java.util.Scanner;
 
-public class AskUtils {
+public class AskUser {
     
     public static boolean getYesNo(String prompt) {
         String answer = getString(prompt + " (Y/N)").toLowerCase();

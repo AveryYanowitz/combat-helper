@@ -14,7 +14,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
-import com.tools.dnd.creatures.CreatureFactory;
+import com.tools.dnd.creatures.SpawnPoint;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.util.Enums.DamageType;
@@ -53,7 +53,7 @@ public class CreaturesTest {
     public void campaignTest() throws Exception {
         List<Player> party = new ArrayList<>();
         SystemLambda.withTextFromSystemIn("Akamu","10","10","10").execute(() -> {
-            List<Player> partyTemp = CreatureFactory.createParty("Adeo");
+            List<Player> partyTemp = SpawnPoint.createParty("Adeo");
             for (Player plr : partyTemp) {
                 party.add(plr);
             }
@@ -88,7 +88,7 @@ public class CreaturesTest {
 
         List<Monster> monsters = new ArrayList<>();
         SystemLambda.withTextFromSystemIn("N", "N").execute(() -> {
-            List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
+            List<Monster> monstersTemp = SpawnPoint.monstersFromName(monsterMap);
             for (Monster mon : monstersTemp) {
                 monsters.add(mon);
             }
@@ -142,7 +142,7 @@ public class CreaturesTest {
         monsterMap.put("Test Monster", 1);
 
         SystemLambda.withTextFromSystemIn("Y", "alias").execute(() -> {
-            List<Monster> monstersTemp = CreatureFactory.monstersFromName(monsterMap);
+            List<Monster> monstersTemp = SpawnPoint.monstersFromName(monsterMap);
             for (Monster mon : monstersTemp) {
                 assertEquals("Test Monster", mon.getStatBlockName());
                 assertEquals("alias", mon.getNAME());

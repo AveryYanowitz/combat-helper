@@ -13,7 +13,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
-public class CsvUtils {
+public class CsvParser {
     
     /**
      * Searches the given CSV for the given String in the given column

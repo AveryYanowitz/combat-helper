@@ -1,10 +1,10 @@
 package com.tools.dnd.creatures;
 
-import static com.tools.dnd.util.AskUtils.getInt;
+import static com.tools.dnd.util.AskUser.getInt;
 
 import java.util.Map;
 
-import com.tools.dnd.util.AskUtils;
+import com.tools.dnd.util.AskUser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,17 +34,17 @@ public class Player extends Creature {
     }
 
     private boolean _survived() {
-        if (_dead && AskUtils.getYesNo("Is "+_NAME+" still _dead?")) {
+        if (_dead && AskUser.getYesNo("Is "+_NAME+" still _dead?")) {
             return false;
-        } else if (!_dead && AskUtils.getYesNo("Is "+_NAME+" _dead?")) {
+        } else if (!_dead && AskUser.getYesNo("Is "+_NAME+" _dead?")) {
             _dying = false;
             _dead = true;
             return false;
         }
         
-        if (_dying && AskUtils.getYesNo("Has "+_NAME+" been healed?")) {            
+        if (_dying && AskUser.getYesNo("Has "+_NAME+" been healed?")) {            
             _dying = false;
-        } else if (!_dying && AskUtils.getYesNo("Is "+_NAME+" at 0 HP?")) {
+        } else if (!_dying && AskUser.getYesNo("Is "+_NAME+" at 0 HP?")) {
             _dying = true;
         }
 

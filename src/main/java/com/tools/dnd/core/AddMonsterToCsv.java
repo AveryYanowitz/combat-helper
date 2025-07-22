@@ -1,30 +1,29 @@
 package com.tools.dnd.core;
 
-import static com.tools.dnd.util.AskUtils.getArray;
-import static com.tools.dnd.util.AskUtils.getInt;
-import static com.tools.dnd.util.AskUtils.getIntString;
-import static com.tools.dnd.util.AskUtils.getString;
-import static com.tools.dnd.util.AskUtils.getYesNo;
+import static com.tools.dnd.util.AskUser.getArray;
+import static com.tools.dnd.util.AskUser.getInt;
+import static com.tools.dnd.util.AskUser.getIntString;
+import static com.tools.dnd.util.AskUser.getString;
+import static com.tools.dnd.util.AskUser.getYesNo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.util.CsvUtils;
+import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class AddMonsterToCsv {
     public static void main(String[] args) throws IOException, CsvException {
-        List<String> existingMonsters =  CsvUtils.getColFromAllRows("monster_list.csv", 0);
+        List<String> existingMonsters =  CsvParser.getColFromAllRows("monster_list.csv", 0);
         while (true) {
             String[] newRow = _getCsvEntry(existingMonsters);
             if (newRow != null) {
-                CsvUtils.writeRow("monster_list.csv", newRow);
+                CsvParser.writeRow("monster_list.csv", newRow);
             }
             if (!getYesNo("Add another?")) {
                 break;
