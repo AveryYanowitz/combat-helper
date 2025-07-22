@@ -17,6 +17,13 @@ import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class CreatureFactory {
+
+    public static void main(String[] args) throws IllegalStateException, IOException, CsvException {
+        Map<String, Integer> chadMap = Map.of("chad", 1);
+        List<Monster> chadList = monstersFromName(chadMap);
+        System.out.println(chadList.get(0));
+    }
+
     /**
      * Create a List of Players in the given campaign, excluding absent players
      * @param campaignName The name of the campaign
@@ -162,7 +169,8 @@ public class CreatureFactory {
                 i += 2; // advance past comma and space
                 sb = new StringBuilder();
             } else {
-                throw new IllegalArgumentException("Failed to parse string "+actionStr+" at char "+i);
+                // we incremented i after reading ch so we have to do i-1
+                throw new IllegalArgumentException("Failed to parse string "+actionStr+" at char "+(i-1));
             }
         }
         return actions;

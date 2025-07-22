@@ -20,7 +20,7 @@ public class AskUtils {
     public static String getString(String prompt) {
         Scanner in = new Scanner(System.in);
         System.out.print(prompt+" ");
-        return in.next();
+        return in.nextLine();
     }
 
     public static String[] getArray(String prompt) {

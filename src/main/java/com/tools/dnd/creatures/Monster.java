@@ -10,6 +10,7 @@ import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -17,6 +18,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(prefix = "_")
+@EqualsAndHashCode(callSuper = true)
 public class Monster extends Creature {
     private String _statBlockName;
     private final int _INIT_BONUS, _MAX_HP, _AUTO_HEAL, _MAX_LEGENDARY_ACTIONS;

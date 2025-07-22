@@ -2,6 +2,7 @@ package com.tools.dnd.util;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
 public class CsvUtils {
@@ -84,6 +86,13 @@ public class CsvUtils {
                 filtered.add(row[col]);
             }
             return filtered;
+        }
+    }
+
+    public static void writeRow(String filename, String[] row) throws IOException {
+        FileWriter fw = new FileWriter(new File("src/resources/"+filename), true);
+        try (CSVWriter writer = new CSVWriter(fw)) {
+            writer.writeNext(row);
         }
     }
 

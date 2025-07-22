@@ -8,6 +8,7 @@ import java.util.Set;
 import com.opencsv.bean.CsvBindByName;
 import com.tools.dnd.util.AskUtils;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -15,6 +16,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Accessors(prefix = "_")
+@EqualsAndHashCode
 public abstract class Creature implements Comparable<Creature> {
     @CsvBindByName(column = "Name", required = true)
     protected final String _NAME;
