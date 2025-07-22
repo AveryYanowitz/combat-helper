@@ -112,7 +112,7 @@ public class CreatureFactory {
         Map<DamageResponse,DamageType[]> damageMap = new HashMap<>();
         int col = 4;
         for (DamageResponse val : DamageResponse.values()) {
-            if (val == DamageResponse.NORMAL) {
+            if (val == DamageResponse.DEFAULT) {
                 continue;
             }
             String[] splitStr = row.get(col).strip().split(";");
@@ -122,7 +122,7 @@ public class CreatureFactory {
             } else {
                 damageTypes = new DamageType[splitStr.length];
                 for (int i = 0; i < splitStr.length; i++) {
-                    damageTypes[i] = Enums.evaluateType(splitStr[i]);
+                    damageTypes[i] = Enums.evaluateType(DamageType.class, splitStr[i]);
                 }
             }
 

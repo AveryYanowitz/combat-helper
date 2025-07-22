@@ -1,18 +1,15 @@
 package com.tools.dnd.core;
 
 import static com.tools.dnd.util.AskUtils.getArray;
-import static com.tools.dnd.util.AskUtils.getInt;
 import static com.tools.dnd.util.AskUtils.getIntString;
 import static com.tools.dnd.util.AskUtils.getString;
 import static com.tools.dnd.util.AskUtils.getYesNo;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.util.CsvUtils;
-import com.tools.dnd.util.Enums.DamageResponse;
 
 public class AddMonsterToCsv {
     public static void main(String[] args) throws IOException, CsvException {

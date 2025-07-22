@@ -2,8 +2,6 @@ package com.tools.dnd.util;
 
 import java.util.Scanner;
 
-import com.tools.dnd.util.Enums.DamageResponse;
-
 public class AskUtils {
     
     public static boolean getYesNo(String prompt) {
@@ -43,19 +41,6 @@ public class AskUtils {
         }
     }
 
-    public static String getIntString(String prompt) {
-        int answer = getInt(prompt);
-        return Integer.toString(answer);
-    }
-
-    public static <E extends Enum<E>> void getEnum(Class<E> clazz, String prompt) {
-        try {
-            String answer = getString(prompt);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
     public static Integer getInt(String prompt, String exception, int sentinelValue) {
         String answer = getString(prompt);
         if (answer.equals(exception)) {
@@ -67,6 +52,16 @@ public class AskUtils {
             System.out.println("Sorry, couldn't understand that!");
             return getInt(prompt, exception, sentinelValue);
         }
+    }
+    
+    public static String getIntString(String prompt) {
+        int answer = getInt(prompt);
+        return Integer.toString(answer);
+    }
+
+    public static <E extends Enum<E>> E getEnum(Class<E> clazz, String prompt) {
+        String answer = getString(prompt);
+        return Enums.evaluateType(clazz, answer);
     }
 
 }

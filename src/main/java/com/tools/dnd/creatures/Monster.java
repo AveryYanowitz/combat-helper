@@ -107,7 +107,7 @@ public class Monster extends Creature {
                 case IMMUNE:
                     dmg = 0;
                     break;
-                case NORMAL:
+                case DEFAULT:
                     break;
             }
             totalDamage += dmg;
@@ -322,7 +322,7 @@ public class Monster extends Creature {
                 return DamageResponse.IMMUNE;
             }            
         }
-        return DamageResponse.NORMAL;
+        return DamageResponse.DEFAULT;
     }
 
     /**
