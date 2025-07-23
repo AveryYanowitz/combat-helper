@@ -1,4 +1,4 @@
-package com.tools.dnd.core;
+package com.tools.dnd.combat_flow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +106,5 @@ public class InitList {
             }
         }
     }
-
-
     
 }

@@ -12,7 +12,6 @@ import com.tools.dnd.util.Enums.DamageType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Getter

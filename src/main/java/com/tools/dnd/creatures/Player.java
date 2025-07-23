@@ -2,6 +2,7 @@ package com.tools.dnd.creatures;
 
 import static com.tools.dnd.util.AskUser.getInt;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.tools.dnd.util.AskUser;
@@ -28,7 +29,7 @@ public class Player extends Creature {
     public Map<String, String> takeTurn() {
         System.out.println(getConditionsAsString());
         if (!_survived() || _dying) {
-            return null;
+            return new HashMap<>();
         }
         return super._getDamage();
     }

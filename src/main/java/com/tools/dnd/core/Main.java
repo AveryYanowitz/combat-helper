@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.combat_flow.InitList;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.creatures.SpawnPoint;
@@ -25,7 +26,7 @@ public class Main {
 
     public static List<Player> getParty() {
         try {
-            String partyName = getString("Party name: ");
+            String partyName = getString("Party Name:");
             return SpawnPoint.createParty(partyName);
         } catch (IllegalStateException | IOException | CsvException e) {
             System.out.println("Couldn't find that, please try again!");

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import com.tools.dnd.core.InitList;
+import com.tools.dnd.combat_flow.InitList;
 import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
