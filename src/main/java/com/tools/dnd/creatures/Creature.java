@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.opencsv.bean.CsvBindByName;
-import com.tools.dnd.combat_flow.InputHandler;
+import com.tools.dnd.user_input.InputHandler;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

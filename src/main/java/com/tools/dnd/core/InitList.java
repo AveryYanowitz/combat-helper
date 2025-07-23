@@ -1,4 +1,4 @@
-package com.tools.dnd.combat_flow;
+package com.tools.dnd.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -138,12 +138,12 @@ public class InitList {
         return false;
     }
 
-    protected void endEarly() {
+    public void endEarly() {
         _combatDone = true;
         _outcome = "Combat was ended early";
     }
 
-    protected void reOrder(String[] newOrder) {
+    public void reOrder(String[] newOrder) {
         int oldSize = _initList.size();
         int newSize = newOrder.length;
         if (oldSize != newSize) {

@@ -1,4 +1,4 @@
-package com.tools.dnd.combat_flow;
+package com.tools.dnd.user_input;
 
 @FunctionalInterface
 public interface Command {

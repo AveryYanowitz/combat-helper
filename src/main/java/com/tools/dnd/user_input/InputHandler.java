@@ -1,10 +1,10 @@
-package com.tools.dnd.combat_flow;
+package com.tools.dnd.user_input;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.tools.dnd.creatures.Creature;
+import com.tools.dnd.core.InitList;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.SpawnPoint;
 import com.tools.dnd.util.Enums;
@@ -12,62 +12,62 @@ import com.tools.dnd.util.Enums;
 public class InputHandler {
     private final boolean _COMMANDS_ENABLED;
     private final InitList _initList;
-    private final Map<String, Command> _commands;
+    private final CommandBundle _cmdBundle;
 
     public InputHandler() {
         _COMMANDS_ENABLED = false;
         _initList = null;
-        _commands = null;
+        _cmdBundle = null;
     }
 
     public InputHandler(InitList initList) {
         _COMMANDS_ENABLED = true;
         _initList = initList;
-        _commands = new HashMap<>();
+        _cmdBundle = new CommandBundle();
 
-        _commands.put("!add", () -> {
+        _cmdBundle.register("!add", "Add more monsters to combat", () -> {
             Map<String, Integer> monsterMap = getMap("Monster Name:", "Number:", "Add another?");
             _initList.addCreatures(SpawnPoint.monstersFromName(monsterMap));
         });
 
-        _commands.put("!end", () -> {
+        _cmdBundle.register("!end", "End combat early", () -> {
             _initList.endEarly();
+            System.out.println(_initList.getOutcome());
         });
 
-        _commands.put("!cond", () -> {
-            Creature cr = _initList.getCreature(getString("Which creature to change?"));
-            if (cr != null) {
-                cr.addCondition(getString("What condition to add?"));
-            } else {
-                System.out.println("Sorry, couldn't find that creature.");
-            }
+        _cmdBundle.register("!cond-add", "Add a condition to a monster", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            mon.addConditions(getArray("Conditions to add:"));
         });
 
-        _commands.put("!help", () -> {
-            System.out.println("""
-                    !add - add more monsters to combat
-                    !end - end combat
-                    !cond - modify a creature's conditions
-                    !hp - set monster HP to new value
-                    !init - reorder initiative list
-                    !lr - change number of legendary resistances left
-                    """);
+        _cmdBundle.register("!cond-del", "Remove a condition from a monster", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            mon.removeConditions(getArray("Conditions to add:"));
         });
 
-        _commands.put("!hp", () -> {
-            Monster mon = _initList.getMonster(getString("Which monster's HP are you changing?"));
-            System.out.println("Current HP: "+mon.getCurrentHp());
+        _cmdBundle.register("!help", "Print out this message", () -> {
+            System.out.println(_cmdBundle);
         });
 
-        _commands.put("!init", () -> {
-            String[] newOrder = getArray("Input new initiative order, using creatures' EXACT names:");
-            _initList.reOrder(newOrder);
+        _cmdBundle.register("!hp", "Set a monster's HP", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            int currentHp = mon.getCurrentHp();
+            int newHp = getInt("New HP:");
+            mon.changeHp(newHp - currentHp);
         });
 
+       _cmdBundle.register("!init", "Reorder the initiative list", () -> {
+            _initList.reOrder(getArray("Enter new initiative order, using monsters' EXACT names:"));
+        });
 
-        _commands.put("!lr", () -> {
-            Monster mon = _initList.getMonster(getString("Which monster's legendary resistances are you changing?"));
-            mon.setLegendaryRes(getInt("How many does it have now?"));
+        _cmdBundle.register("!la", "Change a monster's remaining legendary actions", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            mon.setCurrentLegendaryActions(getInt("New Legendary Actions:"));
+        });
+
+        _cmdBundle.register("!lr", "Change a monster's remaining legendary resistances", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            mon.setLegendaryResistances(getInt("New Legendary Resistances:"));            
         });
     }
     public boolean getYesNo(String prompt) {
@@ -88,7 +88,8 @@ public class InputHandler {
         System.out.print(prompt+" ");
         String answer = in.nextLine();
         if (_COMMANDS_ENABLED && answer.charAt(0) == '!') {
-            
+            _cmdBundle.runCommand(answer);
+            return getString(prompt);
         }
         return in.nextLine();
     }
@@ -151,6 +152,5 @@ public class InputHandler {
             System.out.println("Sorry, couldn't understand that!");
             _putMapEntry(map, keyPrompt, valPrompt);
         }
-    }    
-
+    }
 }

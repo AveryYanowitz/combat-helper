@@ -50,6 +50,20 @@ public class Monster extends Creature {
         return initiative;
     }
 
+    public void addConditions(String[] conditionsToAdd) {
+        for (String condition : conditionsToAdd) {
+            _conditions.add(condition);
+        }
+    }
+
+    public void removeConditions(String[] conditionsToRemove) {
+        for (String condition : conditionsToRemove) {
+            if (!_conditions.remove(condition)) {
+                System.out.println("Condition "+condition+" not found on monster "+_NAME);
+            }
+        }
+    }
+
     /**
      * Changes HP by the given amount, taking temp HP into account
      * @param change Amount to change by; positive if healing, negative if damage
@@ -116,11 +130,19 @@ public class Monster extends Creature {
         _tempHp = tempHp;
     }
 
-    public void setLegendaryRes(int n) {
+    public void setLegendaryResistances(int n) {
         if (n < 0) {
             _legendaryResistances = 0;
         } else {
             _legendaryResistances = n;
+        }
+    }
+
+    public void setCurrentLegendaryActions(int n) {
+        if (n < 0) {
+            _legendaryActions = 0;
+        } else {
+            _legendaryActions = n;
         }
     }
 

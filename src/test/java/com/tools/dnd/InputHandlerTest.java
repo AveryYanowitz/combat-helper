@@ -8,9 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
-import com.tools.dnd.combat_flow.InputHandler;
+import com.tools.dnd.user_input.InputHandler;
 
-public class AskUtilsTest {
+public class InputHandlerTest {
     private InputHandler input;
 
     @BeforeAll

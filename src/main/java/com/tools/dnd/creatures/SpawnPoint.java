@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.combat_flow.InputHandler;
+import com.tools.dnd.user_input.InputHandler;
 import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageResponse;

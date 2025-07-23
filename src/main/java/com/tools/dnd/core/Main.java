@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.combat_flow.InitList;
-import com.tools.dnd.combat_flow.InputHandler;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.creatures.SpawnPoint;
+import com.tools.dnd.user_input.InputHandler;
 
 public class Main {
     private static final InputHandler input = new InputHandler();
