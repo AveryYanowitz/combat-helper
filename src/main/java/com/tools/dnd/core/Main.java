@@ -17,7 +17,7 @@ public class Main {
         List<Player> party = getParty();
         List<Monster> monsters = getMonsters();
         InitList initList = new InitList(party, monsters);
-        while (!initList.combatDone()) {
+        while (!initList.isCombatDone()) {
             initList.nextTurn();
         }
         System.out.println("Combat is done! "+initList.getOutcome());

@@ -69,13 +69,13 @@ public class InitListTest {
         List<Monster> monList = TestingTools.getMonstersNoAliases(monsterNames);
         List<Player> playerList = List.of(new Player("p1", 3, 3));
         InitList init = new InitList(monList, playerList);
-        assertFalse(init.combatDone());
+        assertFalse(init.isCombatDone());
 
         monList.get(0).changeHp(-1000);
-        assertFalse(init.combatDone());
+        assertFalse(init.isCombatDone());
 
         monList.get(1).changeHp(-1000);
-        assertTrue(init.combatDone());
+        assertTrue(init.isCombatDone());
         assertEquals("The party won!", init.getOutcome());
     }
 
@@ -85,13 +85,13 @@ public class InitListTest {
         List<Monster> monList = TestingTools.getMonstersNoAliases(monsterNames);
         List<Player> playerList = List.of(new Player("p1", 3, 3), new Player("p2", 3, 3));
         InitList init = new InitList(monList, playerList);
-        assertFalse(init.combatDone());
+        assertFalse(init.isCombatDone());
 
         playerList.get(0).setDead(true);
-        assertFalse(init.combatDone());
+        assertFalse(init.isCombatDone());
 
         playerList.get(1).setDead(true);
-        assertTrue(init.combatDone());
+        assertTrue(init.isCombatDone());
         assertEquals("The party lost!", init.getOutcome());
     }
 

@@ -1,8 +1,10 @@
 package com.tools.dnd.combat_flow;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
@@ -17,6 +19,7 @@ public class InitList {
     private List<Creature> _initList;
     private int _currentIndex, _roundsCompleted;
     private String _outcome;
+    private boolean _combatDone;
 
     @SafeVarargs
     public InitList(List<? extends Creature>... creatureLists) {
@@ -29,6 +32,7 @@ public class InitList {
         _initList.sort((c1, c2) -> c1.compareTo(c2)); // sorts by initiative, breaking ties with dex
         _currentIndex = _roundsCompleted = 0;
         System.out.println(this); // copy-pastable init list
+        _combatDone = false;
     }
 
     @Override
@@ -62,6 +66,31 @@ public class InitList {
         return nextInLine;
     }
 
+    public Creature getCreature(String name) {
+        for (Creature creature : _initList) {
+            if (creature.getNAME().equals(name)) {
+                return creature;
+            }
+        }
+        return null;
+    }
+
+    public Monster getMonster(String name) {
+        Creature cr = getCreature(name);
+        if (cr instanceof Monster) {
+            return (Monster) cr;
+        }
+        return null;
+    }
+
+    public Player getPlayer(String name) {
+        Creature cr = getCreature(name);
+        if (cr instanceof Player) {
+            return (Player) cr;
+        }
+        return null;
+    }
+
     public int addCreature(Creature newCreature) {
         for (int i = 0; i < _initList.size(); i++) {
             Creature current = _initList.get(i);
@@ -74,7 +103,17 @@ public class InitList {
         return _initList.size() - 1;
     }
 
-    public boolean combatDone() {
+    public int addCreatures(Collection<? extends Creature> newCreatures) {
+        for (Creature creature : newCreatures) {
+            addCreature(creature);
+        }
+        return _initList.size() - 1;
+    }
+
+    public boolean isCombatDone() {
+        if (_combatDone) {
+            return true;
+        }
         boolean allPlayersDead = true;
         boolean allMonstersDead = true;
 
@@ -89,12 +128,36 @@ public class InitList {
         }
         if (allPlayersDead) {
             _outcome = "The party lost!";
+            _combatDone = true;
             return true;
         } else if (allMonstersDead) {
             _outcome = "The party won!";
+            _combatDone = true;
             return true;
         }
         return false;
+    }
+
+    protected void endEarly() {
+        _combatDone = true;
+        _outcome = "Combat was ended early";
+    }
+
+    protected void reOrder(String[] newOrder) {
+        int oldSize = _initList.size();
+        int newSize = newOrder.length;
+        if (oldSize != newSize) {
+            throw new ArrayIndexOutOfBoundsException(newSize+" does not equal expected size "+oldSize);
+        }
+        List<Creature> newList = new ArrayList<>(newSize);
+        for (int i = 0; i < newSize; i++) {
+            Creature creature = getCreature(newOrder[i]);
+            if (creature == null) {
+                throw new NoSuchElementException("Could not find creature "+newOrder[i]);
+            }
+            newList.add(creature);
+        }
+        _initList = newList;
     }
 
     private void _logDamage(Map<String, String> targetsToDamage) {

@@ -116,6 +116,14 @@ public class Monster extends Creature {
         _tempHp = tempHp;
     }
 
+    public void setLegendaryRes(int n) {
+        if (n < 0) {
+            _legendaryResistances = 0;
+        } else {
+            _legendaryResistances = n;
+        }
+    }
+
     /** Asks user if monster autoheals */
     private void _autoheal() {
         if (_AUTO_HEAL > 0 && input.getYesNo("Does "+_NAME+" autoheal this round?")) {
