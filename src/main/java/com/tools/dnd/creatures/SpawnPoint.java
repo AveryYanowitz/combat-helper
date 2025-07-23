@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.tools.dnd.util.AskUser.getArray;
-import static com.tools.dnd.util.AskUser.getYesNo;
-import static com.tools.dnd.util.AskUser.getString;
-
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.combat_flow.InputHandler;
 import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageResponse;
@@ -18,6 +15,7 @@ import com.tools.dnd.util.Enums.DamageType;
 
 /** Tools for creating Monsters, Players, etc. */
 public class SpawnPoint {
+    private static InputHandler input = new InputHandler();
 
     /**
      * Create a List of Players in the given campaign, excluding absent players
@@ -28,7 +26,7 @@ public class SpawnPoint {
      * @throws CsvException If reading in the CSV fails
      */
     public static List<Player> createParty(String campaignName) throws IllegalStateException, IOException, CsvException {
-        String[] absentPeople = getArray("Who's missing?");
+        String[] absentPeople = input.getArray("Who's missing?");
         for (int i = 0; i < absentPeople.length; i++) {
             absentPeople[i] = absentPeople[i].strip();
         }
@@ -82,9 +80,9 @@ public class SpawnPoint {
             int legendaryResistances = legendaries[1];
 
             String[] aliases = new String[namesAndNumbers.get(statBlockName)];
-            if (getYesNo("Give nickname(s) to "+statBlockName+"?")) {
+            if (input.getYesNo("Give nickname(s) to "+statBlockName+"?")) {
                 for (int i = 0; i < aliases.length; i++) {
-                    aliases[i] = getString("Alias for "+statBlockName+" "+(i+1)+":");
+                    aliases[i] = input.getString("Alias for "+statBlockName+" "+(i+1)+":");
                 }
             } else {
                 for (int i = 0; i < aliases.length; i++) {

@@ -1,12 +1,13 @@
-package com.tools.dnd.util;
+package com.tools.dnd.combat_flow;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class AskUser {
-    
-    public static boolean getYesNo(String prompt) {
+import com.tools.dnd.util.Enums;
+
+public class InputHandler {
+    public boolean getYesNo(String prompt) {
         String answer = getString(prompt + " (Y/N)").toLowerCase();
         if (answer.toLowerCase().equals("y")) {
             return true;
@@ -19,13 +20,13 @@ public class AskUser {
     }
 
     @SuppressWarnings("resource")
-    public static String getString(String prompt) {
+    public String getString(String prompt) {
         Scanner in = new Scanner(System.in);
         System.out.print(prompt+" ");
         return in.nextLine();
     }
 
-    public static String[] getArray(String prompt) {
+    public String[] getArray(String prompt) {
         String answer = getString(prompt+" (Enter comma-separated list.)");
         if (answer.contains(",")) {
             return answer.split(",");
@@ -33,7 +34,7 @@ public class AskUser {
         return new String[] {answer};
     }
 
-    public static int getInt(String prompt) {
+    public int getInt(String prompt) {
         try {
             String answer = getString(prompt);
             return Integer.parseInt(answer);
@@ -43,7 +44,7 @@ public class AskUser {
         }
     }
 
-    public static Integer getInt(String prompt, String exception, int sentinelValue) {
+    public Integer getInt(String prompt, String exception, int sentinelValue) {
         String answer = getString(prompt);
         if (answer.equals(exception)) {
             return sentinelValue;
@@ -56,17 +57,17 @@ public class AskUser {
         }
     }
     
-    public static String getIntString(String prompt) {
+    public String getIntString(String prompt) {
         int answer = getInt(prompt);
         return Integer.toString(answer);
     }
 
-    public static <E extends Enum<E>> E getEnum(Class<E> clazz, String prompt) {
+    public <E extends Enum<E>> E getEnum(Class<E> clazz, String prompt) {
         String answer = getString(prompt);
         return Enums.evaluateType(clazz, answer);
     }
     
-    public static Map<String, Integer> getMap(String keyPrompt, String valPrompt, String addAnotherPrompt) {
+    public Map<String, Integer> getMap(String keyPrompt, String valPrompt, String addAnotherPrompt) {
         Map<String, Integer> returnMap = new HashMap<>();
         do {
             _putMapEntry(returnMap, keyPrompt, valPrompt);
@@ -74,7 +75,7 @@ public class AskUser {
         return returnMap;
     }
 
-    private static void _putMapEntry(Map<String, Integer> map, String keyPrompt, String valPrompt) {
+    private void _putMapEntry(Map<String, Integer> map, String keyPrompt, String valPrompt) {
         try {
             String key = getString(keyPrompt);
             int val = getInt(valPrompt);
@@ -84,5 +85,7 @@ public class AskUser {
             _putMapEntry(map, keyPrompt, valPrompt);
         }
     }
+
+
 
 }

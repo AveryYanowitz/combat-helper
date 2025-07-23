@@ -1,11 +1,5 @@
 package com.tools.dnd.core;
 
-import static com.tools.dnd.util.AskUser.getArray;
-import static com.tools.dnd.util.AskUser.getInt;
-import static com.tools.dnd.util.AskUser.getIntString;
-import static com.tools.dnd.util.AskUser.getString;
-import static com.tools.dnd.util.AskUser.getYesNo;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,11 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.combat_flow.InputHandler;
 import com.tools.dnd.util.CsvParser;
 import com.tools.dnd.util.Enums;
 import com.tools.dnd.util.Enums.DamageType;
 
 public class AddMonsterToCsv {
+
+    private static InputHandler input;
 
     // Too complex to write simple unit tests, but I've verified this works
     public static void main(String[] args) throws IOException, CsvException {
@@ -27,7 +24,7 @@ public class AddMonsterToCsv {
             if (newRow != null) {
                 CsvParser.writeRow("monster_list.csv", newRow);
             }
-            if (!getYesNo("Add another?")) {
+            if (!input.getYesNo("Add another?")) {
                 break;
             }
         }
@@ -37,15 +34,15 @@ public class AddMonsterToCsv {
     private static String[] _getCsvEntry(List<String> existingMonsters) {
         String[] csvString = new String[13];
         String name;
-        csvString[0] = name = getString("Monster Name:");
+        csvString[0] = name = input.getString("Monster Name:");
         if (existingMonsters.contains(name)) {
             System.out.println("That monster has already been added.");
             return null;
         }
 
-        csvString[1] = getIntString("Initiative Bonus:");
-        csvString[2] = getIntString("Dexterity Score:");
-        csvString[3] = getIntString("Maximum Hit Points:");
+        csvString[1] = input.getIntString("Initiative Bonus:");
+        csvString[2] = input.getIntString("Dexterity Score:");
+        csvString[3] = input.getIntString("Maximum Hit Points:");
         csvString[4] = _getDamageResponse("vulnerable", name);
         csvString[5] = _getDamageResponse("resistant", name);
         csvString[6] = _getDamageResponse("immune", name);
@@ -53,14 +50,14 @@ public class AddMonsterToCsv {
         csvString[8] = _getSpellSlots(name);
         csvString[9] = _getRecharges(name);
         csvString[10] = _getOtherActions(name);
-        csvString[11] = getString("Description of other passives:");
+        csvString[11] = input.getString("Description of other passives:");
         csvString[12] = _getLegendaries(name);
 
         return csvString;
     }
 
     private static String _getDamageResponse(String damageResponseName, String monName) {
-        String[] fullArr = getArray("What damage types is " + monName + " " + damageResponseName + " to?");
+        String[] fullArr = input.getArray("What damage types is " + monName + " " + damageResponseName + " to?");
         List<String> validTypesOnly = new ArrayList<>();
         for (String str : fullArr) {
             if (Enums.evaluateType(DamageType.class, str) != DamageType.DEFAULT) {
@@ -71,21 +68,21 @@ public class AddMonsterToCsv {
     }
     
     private static String _getAutoheal(String monName) {
-        if (!getYesNo("Does "+monName+" autoheal?")) {
+        if (!input.getYesNo("Does "+monName+" autoheal?")) {
             return "0";
         }
-        return getString("How much per round?");
+        return input.getString("How much per round?");
     }
     
     private static String _getSpellSlots(String monName) {
-        if (!getYesNo("Does "+monName+" expend spell slots?")) {
+        if (!input.getYesNo("Does "+monName+" expend spell slots?")) {
             return "";
         }
 
         System.out.println("Input the number slots of each level that "+monName+"has.");
         StringBuilder slotsAsString = new StringBuilder();        
         for (int lvl = 1; lvl < 10; lvl++) {
-            String number = getIntString("Level "+lvl+":");
+            String number = input.getIntString("Level "+lvl+":");
             slotsAsString.append(number);
             if (lvl < 9) { // don't put semicolon on the end
                 slotsAsString.append(";");
@@ -95,10 +92,10 @@ public class AddMonsterToCsv {
     }
 
     private static String _getRecharges(String name) {
-        if (!getYesNo("Does "+name+" have Recharge abilities?")) {
+        if (!input.getYesNo("Does "+name+" have Recharge abilities?")) {
             return "";
         }
-        int minRecharge = getInt("What is the minimum roll to recharge?");
+        int minRecharge = input.getInt("What is the minimum roll to recharge?");
         StringBuilder recharges = new StringBuilder();
         for (int roll = minRecharge; roll < 7; roll++) {
             recharges.append(roll);
@@ -113,10 +110,10 @@ public class AddMonsterToCsv {
         Map<String, Integer> actionMap = new HashMap<>();
         // Even though innate spells are the same under the hood,
         // I find this to be a nicer way to enter them for the user
-        if (getYesNo("Does "+name+" have innate spellcasting?")) {
+        if (input.getYesNo("Does "+name+" have innate spellcasting?")) {
             int dailyUses = 1;
             while (true) {
-                String[] spells = getArray("Which spells can be used "+dailyUses
+                String[] spells = input.getArray("Which spells can be used "+dailyUses
                                         +" times per day? Type 'CANCEL' to finish"
                                         +" adding innate spells)");
                 if (spells[0].equals("cancel")) {
@@ -130,18 +127,18 @@ public class AddMonsterToCsv {
         }
 
         do {
-            actionMap.put(getString("Action name:"), 
-                            getInt("Uses per day (0 to cancel):"));
-        } while (getYesNo("Add another per-day action?"));
+            actionMap.put(input.getString("Action name:"), 
+                            input.getInt("Uses per day (0 to cancel):"));
+        } while (input.getYesNo("Add another per-day action?"));
         return mapToString(actionMap, 0);
 
     }
 
     private static String _getLegendaries(String name) {
         StringBuilder legendary = new StringBuilder();
-        legendary.append(getIntString("How many legendary actions does "+name+" have?"));
+        legendary.append(input.getIntString("How many legendary actions does "+name+" have?"));
         legendary.append(";");
-        legendary.append(getIntString("How many legendary resistances does "+name+" have?"));
+        legendary.append(input.getIntString("How many legendary resistances does "+name+" have?"));
         return legendary.toString();
     }
 

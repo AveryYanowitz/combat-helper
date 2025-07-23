@@ -3,9 +3,6 @@ package com.tools.dnd.creatures;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tools.dnd.util.AskUser.getInt;
-import static com.tools.dnd.util.AskUser.getYesNo;
-
 import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
@@ -121,7 +118,7 @@ public class Monster extends Creature {
 
     /** Asks user if monster autoheals */
     private void _autoheal() {
-        if (_AUTO_HEAL > 0 && getYesNo("Does "+_NAME+" autoheal this round?")) {
+        if (_AUTO_HEAL > 0 && input.getYesNo("Does "+_NAME+" autoheal this round?")) {
             _currentHp += _AUTO_HEAL;
         }
     }
@@ -145,7 +142,7 @@ public class Monster extends Creature {
             // Use up legendary actions, up to the max remaining.
             // Repeat until you get a valid number.
             while (true) {
-                _legendaryActions -= getInt("How many legendary actions does "+_NAME+" use?");
+                _legendaryActions -= input.getInt("How many legendary actions does "+_NAME+" use?");
                 if (_legendaryActions >= 0) {
                     break;
                 }
@@ -153,7 +150,7 @@ public class Monster extends Creature {
                 System.out.println("Not enough legendary actions remaining!");
             }
         }
-        if (_legendaryResistances > 0 && getYesNo("Does "+_NAME+" use a legendary resistance?")) {
+        if (_legendaryResistances > 0 && input.getYesNo("Does "+_NAME+" use a legendary resistance?")) {
             _legendaryActions -= 1;
         }
     }
@@ -165,7 +162,7 @@ public class Monster extends Creature {
                 String actionName = actionEntry.getKey();
                 int before = actionEntry.getValue();
                 while (true) {
-                    int numUsed = getInt("How many uses of "+actionName+" this turn?");
+                    int numUsed = input.getInt("How many uses of "+actionName+" this turn?");
                     if (numUsed <= before) {
                         actionEntry.setValue(before - numUsed);
                         break;
@@ -274,18 +271,18 @@ public class Monster extends Creature {
         _autoheal();
         if (_maxEntry(_spellSlots) > 0) {
             while (true) {
-                int slotLevel = getInt("Input slot level used, or 'Enter' to stop:","",-1);
+                int slotLevel = input.getInt("Input slot level used, or 'Enter' to stop:","",-1);
                 if (slotLevel == -1) {
                     break;
                 }
                 _useSlot(slotLevel);
             }
         }
-        if (getYesNo("Gained temp HP?")) {
-            _tempHp = getInt("How much?");
+        if (input.getYesNo("Gained temp HP?")) {
+            _tempHp = input.getInt("How much?");
         }
-        if (getYesNo("Healed?")) {
-            changeHp(getInt("How much?"));
+        if (input.getYesNo("Healed?")) {
+            changeHp(input.getInt("How much?"));
         }
         return _getDamage();
     }

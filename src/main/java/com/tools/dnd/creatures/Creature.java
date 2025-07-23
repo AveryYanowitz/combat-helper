@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.opencsv.bean.CsvBindByName;
-import com.tools.dnd.util.AskUser;
+import com.tools.dnd.combat_flow.InputHandler;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +25,7 @@ public abstract class Creature implements Comparable<Creature> {
     protected final int _initiative;
     protected Set<String> _conditions;
     protected boolean _dead;
+    protected static final InputHandler input = new InputHandler();
 
     protected Creature(String name, int dex, int initiative) {
         this._NAME = name;
@@ -86,11 +87,11 @@ public abstract class Creature implements Comparable<Creature> {
      */
     protected final Map<String, String> _getDamage() {
         Map<String, String> targetsAndDamage = new HashMap<>();
-        String[] targets = AskUser.getArray("Input target (or 'Enter' if none)");
+        String[] targets = input.getArray("Input target (or 'Enter' if none)");
         if (!targets[0].equals("")) {
             for (String target : targets) {
                 target = target.strip();
-                String damage = AskUser.getString("How much damage to "+target+"?");
+                String damage = input.getString("How much damage to "+target+"?");
                 targetsAndDamage.put(target, damage);
             }
         }
