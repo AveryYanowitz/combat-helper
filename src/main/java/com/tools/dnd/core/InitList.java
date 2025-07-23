@@ -8,9 +8,15 @@ import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
+
+@Getter
+@Accessors(prefix = "_")
 public class InitList {
     private List<Creature> _initList;
-    private int _currentIndex;
+    private int _currentIndex, _roundsCompleted;
+    private String _outcome;
 
     @SafeVarargs
     public InitList(List<? extends Creature>... creatureLists) {
@@ -21,7 +27,7 @@ public class InitList {
             }
         }
         _initList.sort((c1, c2) -> c1.compareTo(c2)); // sorts by initiative, breaking ties with dex
-        _currentIndex = 0;
+        _currentIndex = _roundsCompleted = 0;
         System.out.println(this); // copy-pastable init list
     }
 
@@ -43,7 +49,7 @@ public class InitList {
      * then returns that element (primarily for debugging purposes)
      * @return The Creature whose turn was just taken
      */
-    public Creature takeNextTurn() {
+    public Creature nextTurn() {
         Creature nextInLine = _initList.get(_currentIndex);
         Map<String, String> targetsToDamage = nextInLine.takeTurn();
         _logDamage(targetsToDamage);
@@ -51,6 +57,7 @@ public class InitList {
         _currentIndex++;
         if (_currentIndex == _initList.size()) {
             _currentIndex = 0;
+            _roundsCompleted++;
         }
         return nextInLine;
     }
@@ -76,11 +83,18 @@ public class InitList {
                 if (creature instanceof Player) {
                     allPlayersDead = false;
                 } else if (creature instanceof Monster) {
-                    allPlayersDead = false;
+                    allMonstersDead = false;
                 }
             }
         }
-        return allPlayersDead || allMonstersDead;
+        if (allPlayersDead) {
+            _outcome = "The party lost!";
+            return true;
+        } else if (allMonstersDead) {
+            _outcome = "The party won!";
+            return true;
+        }
+        return false;
     }
 
     private void _logDamage(Map<String, String> targetsToDamage) {

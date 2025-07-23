@@ -1,14 +1,17 @@
 package com.tools.dnd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
-
 import com.tools.dnd.core.InitList;
 import com.tools.dnd.creatures.Creature;
+import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 
 public class InitListTest {
@@ -56,9 +59,40 @@ public class InitListTest {
         InitList initList = new InitList(List.of(c1, c2, c3, c4, c5, c6));
         for (int i = 1; i <= 6; i++) {
             String name = "c" + i;
-            assertEquals(name, initList.takeNextTurn().getNAME());
+            assertEquals(name, initList.nextTurn().getNAME());
         }
+    }
 
+    @Test
+    public void partyWinsTest() throws Exception {
+        String[] monsterNames = {"Commoner", "Mage"};
+        List<Monster> monList = TestingTools.getMonstersNoAliases(monsterNames);
+        List<Player> playerList = List.of(new Player("p1", 3, 3));
+        InitList init = new InitList(monList, playerList);
+        assertFalse(init.combatDone());
+
+        monList.get(0).changeHp(-1000);
+        assertFalse(init.combatDone());
+
+        monList.get(1).changeHp(-1000);
+        assertTrue(init.combatDone());
+        assertEquals("The party won!", init.getOutcome());
+    }
+
+    @Test
+    public void partyLosesTest() throws Exception {
+        String[] monsterNames = {"Commoner", "Mage"};
+        List<Monster> monList = TestingTools.getMonstersNoAliases(monsterNames);
+        List<Player> playerList = List.of(new Player("p1", 3, 3), new Player("p2", 3, 3));
+        InitList init = new InitList(monList, playerList);
+        assertFalse(init.combatDone());
+
+        playerList.get(0).setDead(true);
+        assertFalse(init.combatDone());
+
+        playerList.get(1).setDead(true);
+        assertTrue(init.combatDone());
+        assertEquals("The party lost!", init.getOutcome());
     }
 
 }

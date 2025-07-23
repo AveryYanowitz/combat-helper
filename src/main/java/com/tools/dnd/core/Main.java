@@ -17,7 +17,10 @@ public class Main {
         List<Player> party = getParty();
         List<Monster> monsters = getMonsters();
         InitList initList = new InitList(party, monsters);
-        
+        while (!initList.combatDone()) {
+            initList.nextTurn();
+        }
+        System.out.println("Combat is done! "+initList.getOutcome());
     }
 
     public static List<Player> getParty() {
@@ -32,7 +35,8 @@ public class Main {
 
     public static List<Monster> getMonsters() {
         try {
-            Map<String, Integer> monsterMap = getMap("Monster name:", "Number:");
+            Map<String, Integer> monsterMap = getMap("Monster Name:", "Number:",
+                                    "Add another monster?");
             return SpawnPoint.monstersFromName(monsterMap);
         } catch (IllegalStateException | IOException | CsvException e) {
             return getMonsters();

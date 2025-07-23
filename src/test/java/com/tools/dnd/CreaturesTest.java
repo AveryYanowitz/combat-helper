@@ -7,10 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
@@ -82,17 +79,8 @@ public class CreaturesTest {
 
     @Test
     public void createMonster() throws Exception {       
-        Map<String, Integer> monsterMap = new HashMap<>();
-        monsterMap.put("Test Monster", 1);
-        monsterMap.put("Commoner", 1);
-
-        List<Monster> monsters = new ArrayList<>();
-        SystemLambda.withTextFromSystemIn("N", "N").execute(() -> {
-            List<Monster> monstersTemp = SpawnPoint.monstersFromName(monsterMap);
-            for (Monster mon : monstersTemp) {
-                monsters.add(mon);
-            }
-        });
+        String[] monNames = {"Test Monster", "Commoner"};
+        List<Monster> monsters = TestingTools.getMonstersNoAliases(monNames);
 
         Monster commoner = monsters.get(0);
         Monster testMon = monsters.get(1);
@@ -102,7 +90,6 @@ public class CreaturesTest {
         assertEquals(8, testMon.getDEX());
         assertEquals(10, commoner.getDEX());
         
-
         assertEquals(5, testMon.getMAX_HP());
         assertEquals(4, commoner.getMAX_HP());
         assertEquals(5, testMon.getCurrentHp());
@@ -138,12 +125,10 @@ public class CreaturesTest {
 
     @Test
     public void monsterAlias() throws Exception {
-        Map<String, Integer> monsterMap = new HashMap<>();
-        monsterMap.put("Test Monster", 1);
+        List<Monster> aliasedMons = TestingTools.getMonstersWithAliases(new String[] {"Test Monster"}, new String[] {"alias"});
 
         SystemLambda.withTextFromSystemIn("Y", "alias").execute(() -> {
-            List<Monster> monstersTemp = SpawnPoint.monstersFromName(monsterMap);
-            for (Monster mon : monstersTemp) {
+            for (Monster mon : aliasedMons) {
                 assertEquals("Test Monster", mon.getStatBlockName());
                 assertEquals("alias", mon.getNAME());
             }

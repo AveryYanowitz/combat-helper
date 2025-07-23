@@ -2,7 +2,8 @@ Name,Init,Dex,HP,Vulnerabilities,Resistances,Immunities,Per-Round Healing,Spell 
 Ancient Brass Dragon,0,10,297,,,fire,0,,5;6,,Check stat block for passives!,3;3
 Vampire,4,18,144,,necrotic,,20,,,,Check stat block for passives!,3;3
 Skeleton,2,14,13,bludgeoning,,poison,0,,,,Check stat block for passives!,0;0
-Mage,2,14,40,,,,0,4;3;3;3;1,,,Check stat block for passives!,0;0Awakened Shrub,-1,8,10,fire,piercing,,0,,,,Check stat block for passives!,0;0
+Mage,2,14,40,,,,0,4;3;3;3;1,,,Check stat block for passives!,0;0
+Awakened Shrub,-1,8,10,fire,piercing,,0,,,,Check stat block for passives!,0;0
 Baboon,2,14,3,,,,0,,,,Check stat block for passives!,0;0
 Badger,0,11,3,,,,0,,,,Check stat block for passives!,0;0
 Bat,2,15,1,,,,0,,,,Check stat block for passives!,0;0
@@ -322,7 +323,6 @@ Mind Flayer,1,12,71,,,,0,,5;6,"'Dominate Monster': 1, 'Plane Shift': 1",,0;0
 Hierophant of the Comet,1,13,153,,psychic,,0,,6,"'Dimension Door': 1, 'Mass Suggestion': 1, 'Comet's Voice': 1",,0;0
 Doomguard Doom Lord,1,12,202,,,necrotic,0,,,""," Aura of Doom. Any creature that starts its turn within 10 feet of the doom lord must make a DC 16 Constitution saving throw, taking 18 (4d8) necrotic damage on a failed save, or half as much damage on a successful one. If the doom lord doesn't have the incapacitated condition, it can suppress or resume this aura at the start of its turn (no action required).",0;0
 Asteria,5,21,195,,,poison,0,,4;5;6,"'Bless': 2, 'Freedom of Movement': 2, 'Greater Restoration': 2, 'Plane Shift (self)': 2, 'Protection from Evil and Good': 2, 'Revivify': 2"," Guardian Aura. Whenever a creature of Asteria's choice within 30 feet of her makes a saving throw, Asteria can give the creature advantage on the saving throw (no action required). This trait doesn't function if Asteria has the incapacitated condition.",3;3
-Awakened Shrub,-1,8,10,fire,piercing,,0,,,,Check stat block for passives!,0;0
 Sable Elf Hierophant,1,13,90,,,,0,,,"'Voice of Hecate': 1, 'Dispel Magic': 2, 'Lightning Bolt': 2, 'Mage Armor': 2, 'Web': 2, 'Banishment': 1, 'Evard's Black Tentacles': 1, 'Fire Shield': 1, 'Hypnotic Pattern': 1, 'Teleportation Circle': 1",Fey Ancestry,0;0
 Githyanki Supreme Commander,3,17,187,,,,0,,,"'Levitate': 3, 'Nondetection': 3, 'Bigby's Hand': 1, 'Mass Suggestion': 1, 'Plane Shift': 1, 'Telekinesis': 1",REACTION: Parry,3;3
 Rustchoked Iron Golem,-2,7,170,,fire,poison; psychic,0,,,"'Golemcraft Ward': 1","Flame-Softened: After fire damage, loses resistances until start of next turn. \n Screeching Halt: When misses atk, creatures in 30 ft that can hear must make DC 10 concentration checks",0;0

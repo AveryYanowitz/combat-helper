@@ -1,15 +1,8 @@
 package com.tools.dnd.util;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import com.opencsv.exceptions.CsvException;
-import com.tools.dnd.creatures.Monster;
-import com.tools.dnd.creatures.Player;
-import com.tools.dnd.creatures.SpawnPoint;
 
 public class AskUser {
     
@@ -73,19 +66,18 @@ public class AskUser {
         return Enums.evaluateType(clazz, answer);
     }
     
-    public static <K, V> Map<K, V> getMap(String keyPrompt, String valPrompt) {
-        Map<K, V> returnMap = new HashMap<>();
+    public static Map<String, Integer> getMap(String keyPrompt, String valPrompt, String addAnotherPrompt) {
+        Map<String, Integer> returnMap = new HashMap<>();
         do {
             _putMapEntry(returnMap, keyPrompt, valPrompt);
-        } while (getYesNo("Add another monster?"));
+        } while (getYesNo(addAnotherPrompt));
         return returnMap;
     }
 
-    @SuppressWarnings("unchecked")
-    private static <K, V> void _putMapEntry(Map<K, V> map, String keyPrompt, String valPrompt) {
+    private static void _putMapEntry(Map<String, Integer> map, String keyPrompt, String valPrompt) {
         try {
-            K key = (K) getString(keyPrompt);
-            V val = (V) getString(valPrompt);
+            String key = getString(keyPrompt);
+            int val = getInt(valPrompt);
             map.put(key, val);
         } catch (Exception e) {
             System.out.println("Sorry, couldn't understand that!");

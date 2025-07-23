@@ -16,7 +16,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Getter
-@Setter
 @Accessors(prefix = "_")
 @EqualsAndHashCode(callSuper = true)
 public class Monster extends Creature {
@@ -115,6 +114,10 @@ public class Monster extends Creature {
             totalDamage += dmg;
         }
         changeHp(-totalDamage);
+    }
+
+    public void setTempHp(int tempHp) {
+        _tempHp = tempHp;
     }
 
     /** Asks user if monster autoheals */
