@@ -10,14 +10,21 @@ import com.tools.dnd.creatures.Player;
 import com.tools.dnd.creatures.SpawnPoint;
 import com.tools.dnd.user_input.InputHandler;
 
-public class Main {
+public class CombatRunner {
     private static final InputHandler input = new InputHandler();
     public static void main(String[] args) {
         List<Player> party = getParty();
         List<Monster> monsters = getMonsters();
         InitList initList = new InitList(party, monsters);
         while (!initList.isCombatDone()) {
-            initList.nextTurn();
+            try {
+                initList.nextTurn();
+                input.getString("Enter any key to continue.");
+            } catch (Exception e) {
+                System.out.println("Error encountered!");
+                e.printStackTrace();
+                continue;
+            }
         }
         System.out.println("Combat is done! "+initList.getOutcome());
     }
