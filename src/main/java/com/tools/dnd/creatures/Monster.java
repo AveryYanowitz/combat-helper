@@ -1,8 +1,10 @@
 package com.tools.dnd.creatures;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tools.dnd.user_input.InputHandler;
 import com.tools.dnd.util.DndUtils;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
@@ -48,20 +50,6 @@ public class Monster extends Creature {
         int initiative = DndUtils.rollDice(1, 20) + modifier;
         System.out.println("Created "+_name+" with initiative "+initiative);
         return initiative;
-    }
-
-    public void addConditions(String[] conditionsToAdd) {
-        for (String condition : conditionsToAdd) {
-            _conditions.add(condition);
-        }
-    }
-
-    public void removeConditions(String[] conditionsToRemove) {
-        for (String condition : conditionsToRemove) {
-            if (!_conditions.remove(condition)) {
-                System.out.println("Condition "+condition+" not found on monster "+_NAME);
-            }
-        }
     }
 
     /**
@@ -147,7 +135,7 @@ public class Monster extends Creature {
     }
 
     /** Asks user if monster autoheals */
-    private void _autoheal() {
+    private void _autoheal(InputHandler input) {
         if (_AUTO_HEAL > 0 && input.getYesNo("Does "+_NAME+" autoheal this round?")) {
             _currentHp += _AUTO_HEAL;
         }
@@ -166,7 +154,7 @@ public class Monster extends Creature {
     }
 
     /** Asks user if monster uses legendary actions */
-    public void checkLegendaries() {
+    public void checkLegendaries(InputHandler input) {
         int before = _legendaryActions;
         if (_legendaryActions > 0) {
             // Use up legendary actions, up to the max remaining.
@@ -186,7 +174,7 @@ public class Monster extends Creature {
     }
 
     /** Asks user if monster uses any per-day actions */
-    private void _checkActions() {
+    private void _checkActions(InputHandler input) {
         for (var actionEntry : _perDayActions.entrySet()) {
             if (actionEntry.getValue() > 0) {
                 String actionName = actionEntry.getKey();
@@ -206,7 +194,7 @@ public class Monster extends Creature {
     /** Checks if ability recharges and notifies user */
     private void _checkRecharge() {
         int d6 = DndUtils.rollDice(1, 6); // 1, 2, 3, 4, 5, or 6
-        if (_recharge[d6]) {
+        if (_recharge[d6 - 1]) {
             System.out.println("> "+_NAME+"'s ability DOES recharge!");
         } else {
             System.out.println("> "+_NAME+"'s ability does NOT recharge!");
@@ -290,16 +278,16 @@ public class Monster extends Creature {
      * @return A mapping from the names of the creature(s) the monster attacks 
      *         to the string representing the damage they take
      */
-    public Map<String, String> takeTurn() {
+    public Map<String, String> takeTurn(InputHandler input) {
         System.out.println(this);
         if (!_PASSIVES.equals("")) {
             System.out.println(_PASSIVES);
         }
         _legendaryActions = _MAX_LEGENDARY_ACTIONS;
         _checkRecharge();
-        _checkActions();
-        _autoheal();
-        if (_maxEntry(_spellSlots) > 0) {
+        _checkActions(input);
+        _autoheal(input);
+        if (Arrays.stream(_spellSlots).sum() > 0) {
             while (true) {
                 int slotLevel = input.getInt("Input slot level used, or 'Enter' to stop:","",-1);
                 if (slotLevel == -1) {
@@ -314,22 +302,7 @@ public class Monster extends Creature {
         if (input.getYesNo("Healed?")) {
             changeHp(input.getInt("How much?"));
         }
-        return _getDamage();
-    }
-
-    /**
-     * Finds the max entry in the array
-     * @param a The array to check
-     * @return The max value (not its index)
-     */
-    private int _maxEntry(int[] a) {
-        int max = Integer.MIN_VALUE;
-        for (int num : a) {
-            if (num > max) {
-                max = num;
-            }
-        }
-        return max;
+        return _getDamage(input);
     }
 
     /**

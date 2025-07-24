@@ -25,7 +25,6 @@ public abstract class Creature implements Comparable<Creature> {
     protected final int _initiative;
     protected Set<String> _conditions;
     protected boolean _dead;
-    protected static final InputHandler input = new InputHandler();
 
     protected Creature(String name, int dex, int initiative) {
         this._NAME = name;
@@ -40,26 +39,22 @@ public abstract class Creature implements Comparable<Creature> {
         return _NAME;
     }
 
-    /**
-     * Add the given condition to the creature's current conditions
-     * @param condition Condition to add
-     * @return true if added, false if not added
-     */
-    public final boolean addCondition(String condition) {
-        return _conditions.add(condition);
+    public final void addConditions(String[] conditionsToAdd) {
+        for (String condition : conditionsToAdd) {
+            _conditions.add(condition.strip().toLowerCase());
+        }
     }
 
-    /**
-     * Remove the given condition from the creature's current conditions
-     * @param condition Condition to remove
-     * @return true if removed, false if not removed
-     */
-    public final boolean removeCondition(String condition) {
-        boolean wasPresent = _conditions.remove(condition);
-        if (!wasPresent) {
-            System.out.println("Condition "+condition+" not found.");
+    public final void removeConditions(String[] conditionsToRemove) {
+        for (String condition : conditionsToRemove) {
+            if (!_conditions.remove(condition.strip().toLowerCase())) {
+                System.out.println("Condition "+condition+" not found on monster "+_NAME);
+            }
         }
-        return wasPresent;
+    }
+
+    public final boolean hasCondition(String condition) {
+        return _conditions.contains(condition);
     }
 
     public final String getConditionsAsString() {
@@ -79,13 +74,13 @@ public abstract class Creature implements Comparable<Creature> {
      * Take the creature's turn and return a Map that represents which creatures the creature damaged
      * @return A mapping of target names to the damage dealt to them
      */
-    public abstract Map<String, String> takeTurn();
+    public abstract Map<String, String> takeTurn(InputHandler input);
 
     /**
      * Ask the user which targets this creature damages, and how much damage each one takes
      * @return A mapping of target names to the damage dealt to them
      */
-    protected final Map<String, String> _getDamage() {
+    protected final Map<String, String> _getDamage(InputHandler input) {
         Map<String, String> targetsAndDamage = new HashMap<>();
         String[] targets = input.getArray("Input target (or 'Enter' if none)");
         if (!targets[0].equals("")) {

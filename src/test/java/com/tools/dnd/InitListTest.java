@@ -13,6 +13,7 @@ import com.tools.dnd.core.InitList;
 import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
+import com.tools.dnd.user_input.InputHandler;
 
 public class InitListTest {
     static int numTurnsTaken;
@@ -23,7 +24,7 @@ public class InitListTest {
         }
 
         @Override
-        public Map<String, String> takeTurn() {
+        public Map<String, String> takeTurn(InputHandler input) {
             numTurnsTaken++;
             return null;
         }

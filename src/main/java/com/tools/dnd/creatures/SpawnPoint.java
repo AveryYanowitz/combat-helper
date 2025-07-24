@@ -42,7 +42,7 @@ public class SpawnPoint {
         for (List<String> list : presentPlayersOnly) {
             String name = list.get(1);
             int dex = Integer.parseInt(list.get(2));
-            asPlayers.add(new Player(name, dex));
+            asPlayers.add(new Player(name, dex, input));
         }
         if (asPlayers.size() == 0) {
             throw new IllegalStateException("No players found");

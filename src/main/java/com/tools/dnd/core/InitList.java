@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
+import com.tools.dnd.user_input.InputHandler;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -20,6 +21,7 @@ public class InitList {
     private int _currentIndex, _roundsCompleted;
     private String _outcome;
     private boolean _combatDone;
+    private InputHandler _input;
 
     @SafeVarargs
     public InitList(List<? extends Creature>... creatureLists) {
@@ -33,6 +35,7 @@ public class InitList {
         _currentIndex = _roundsCompleted = 0;
         System.out.println(this); // copy-pastable init list
         _combatDone = false;
+        _input = new InputHandler(this);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class InitList {
      */
     public Creature nextTurn() {
         Creature nextInLine = _initList.get(_currentIndex);
-        Map<String, String> targetsToDamage = nextInLine.takeTurn();
+        Map<String, String> targetsToDamage = nextInLine.takeTurn(_input);
         _logDamage(targetsToDamage);
 
         _currentIndex++;
@@ -89,6 +92,10 @@ public class InitList {
             return (Player) cr;
         }
         return null;
+    }
+
+    public String getNameAtIndex(int i) {
+        return _initList.get(i).getNAME();
     }
 
     public int addCreature(Creature newCreature) {
@@ -147,7 +154,7 @@ public class InitList {
         int oldSize = _initList.size();
         int newSize = newOrder.length;
         if (oldSize != newSize) {
-            throw new ArrayIndexOutOfBoundsException(newSize+" does not equal expected size "+oldSize);
+            throw new IllegalArgumentException(newSize+" does not equal expected size "+oldSize);
         }
         List<Creature> newList = new ArrayList<>(newSize);
         for (int i = 0; i < newSize; i++) {

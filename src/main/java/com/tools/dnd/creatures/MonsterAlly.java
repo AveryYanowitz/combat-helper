@@ -2,6 +2,7 @@ package com.tools.dnd.creatures;
 
 import java.util.Map;
 
+import com.tools.dnd.user_input.InputHandler;
 import com.tools.dnd.util.Enums.DamageResponse;
 import com.tools.dnd.util.Enums.DamageType;
 
@@ -15,9 +16,9 @@ public class MonsterAlly extends Monster {
     }
 
     @Override
-    public Map<String, String> takeTurn() {
-        super.takeTurn();
-        return _getDamage();
+    public Map<String, String> takeTurn(InputHandler input) {
+        super.takeTurn(input);
+        return _getDamage(input);
     }
     
 }

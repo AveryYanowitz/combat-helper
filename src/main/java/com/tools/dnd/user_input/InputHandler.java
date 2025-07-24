@@ -70,6 +70,7 @@ public class InputHandler {
             mon.setLegendaryResistances(getInt("New Legendary Resistances:"));            
         });
     }
+
     public boolean getYesNo(String prompt) {
         String answer = getString(prompt + " (Y/N)").toLowerCase();
         if (answer.toLowerCase().equals("y")) {
@@ -87,19 +88,21 @@ public class InputHandler {
         Scanner in = new Scanner(System.in);
         System.out.print(prompt+" ");
         String answer = in.nextLine();
-        if (_COMMANDS_ENABLED && answer.charAt(0) == '!') {
+        if (_COMMANDS_ENABLED && answer.length() > 0 && answer.charAt(0) == '!') {
             _cmdBundle.runCommand(answer);
             return getString(prompt);
         }
-        return in.nextLine();
+        return answer;
     }
 
     public String[] getArray(String prompt) {
         String answer = getString(prompt+" (Enter comma-separated list.)");
-        if (answer.contains(",")) {
-            return answer.split(",");
+        String[] answerSplit;
+        answerSplit = answer.split(",");
+        for (int i = 0; i < answerSplit.length; i++) {
+            answerSplit[i] = answerSplit[i].strip();
         }
-        return new String[] {answer};
+        return answerSplit;
     }
 
     public int getInt(String prompt) {
@@ -112,6 +115,13 @@ public class InputHandler {
         }
     }
 
+    /**
+     * Get an integer, unless a particular value is given, in which case return the sentinelValue
+     * @param prompt The prompt to present to the user
+     * @param exception The string to check for before parsing as int; does not need to be an integer
+     * @param sentinelValue The value to return when "exception" is answered
+     * @return The user's answer, or "sentinelValue" if their answer exactly matches exception
+     */
     public Integer getInt(String prompt, String exception, int sentinelValue) {
         String answer = getString(prompt);
         if (answer.equals(exception)) {

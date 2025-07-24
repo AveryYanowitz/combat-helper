@@ -11,10 +11,10 @@ import com.github.stefanbirkner.systemlambda.SystemLambda;
 import com.tools.dnd.user_input.InputHandler;
 
 public class InputHandlerTest {
-    private InputHandler input;
+    private static InputHandler input;
 
     @BeforeAll
-    void init() {
+    static void init() {
         input = new InputHandler();
     }
 

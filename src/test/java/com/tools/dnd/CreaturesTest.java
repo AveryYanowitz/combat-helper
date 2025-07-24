@@ -49,12 +49,13 @@ public class CreaturesTest {
     @Test
     public void campaignTest() throws Exception {
         List<Player> party = new ArrayList<>();
-        SystemLambda.withTextFromSystemIn("Akamu","10","10","10").execute(() -> {
-            List<Player> partyTemp = SpawnPoint.createParty("Adeo");
-            for (Player plr : partyTemp) {
-                party.add(plr);
-            }
-        });
+        SystemLambda.withTextFromSystemIn("Akamu","10","10","10")
+            .execute(() -> {
+                List<Player> partyTemp = SpawnPoint.createParty("Adeo");
+                for (Player plr : partyTemp) {
+                    party.add(plr);
+                }
+            });
 
         assertTrue(_nameInParty(party, "Helios"));
         assertTrue(_nameInParty(party, "Riley"));
