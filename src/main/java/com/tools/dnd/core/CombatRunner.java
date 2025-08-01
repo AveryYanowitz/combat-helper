@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
+import com.tools.dnd.creatures.BattleEvent;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.creatures.SpawnPoint;
@@ -15,7 +16,8 @@ public class CombatRunner {
     public static void main(String[] args) {
         List<Player> party = getParty();
         List<Monster> monsters = getMonsters();
-        InitList initList = new InitList(party, monsters);
+        List<BattleEvent> events = getEvents();
+        InitList initList = new InitList(party, monsters, events);
         while (!initList.isCombatDone()) {
             try {
                 initList.nextTurn();
@@ -26,7 +28,7 @@ public class CombatRunner {
                 continue;
             }
         }
-        System.out.println("Combat is done! "+initList.getOutcome());
+        System.out.println(initList.getOutcome());
     }
 
     public static List<Player> getParty() {
@@ -47,6 +49,13 @@ public class CombatRunner {
         } catch (IllegalStateException | IOException | CsvException e) {
             return getMonsters();
         }
+    }
+
+    public static List<BattleEvent> getEvents() {
+        if (input.getYesNo("Are there any battlefield events with static initiative, like lair actions or traps?")) {
+            return SpawnPoint.getBattleEvents();
+        }
+        return List.of(); // else return empty list     
     }
 
 }

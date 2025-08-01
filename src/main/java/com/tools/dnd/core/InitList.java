@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 
 import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
+import com.tools.dnd.creatures.MonsterAlly;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.user_input.InputHandler;
 
@@ -98,23 +99,24 @@ public class InitList {
         return _initList.get(i).getNAME();
     }
 
-    public int addCreature(Creature newCreature) {
+    public void addCreature(Creature newCreature) {
         for (int i = 0; i < _initList.size(); i++) {
             Creature current = _initList.get(i);
             if (current.compareTo(newCreature) > 0) {
                 _initList.add(i, newCreature);
-                return i;
             }
         }
         _initList.add(newCreature);
-        return _initList.size() - 1;
     }
 
-    public int addCreatures(Collection<? extends Creature> newCreatures) {
+    public void addCreatures(Collection<? extends Creature> newCreatures) {
         for (Creature creature : newCreatures) {
             addCreature(creature);
         }
-        return _initList.size() - 1;
+    }
+
+    public int size() {
+        return _initList.size();
     }
 
     public boolean isCombatDone() {
@@ -126,7 +128,7 @@ public class InitList {
 
         for (Creature creature : _initList) {
             if (!creature.isDead()) {
-                if (creature instanceof Player) {
+                if (creature instanceof Player || creature instanceof MonsterAlly) {
                     allPlayersDead = false;
                 } else if (creature instanceof Monster) {
                     allMonstersDead = false;
@@ -134,11 +136,11 @@ public class InitList {
             }
         }
         if (allPlayersDead) {
-            _outcome = "The party lost!";
+            _outcome = "Combat is over—the party lost!";
             _combatDone = true;
             return true;
         } else if (allMonstersDead) {
-            _outcome = "The party won!";
+            _outcome = "Combat is over—the party won!";
             _combatDone = true;
             return true;
         }

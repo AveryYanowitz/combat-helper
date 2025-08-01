@@ -77,7 +77,7 @@ public class InitListTest {
 
         monList.get(1).changeHp(-1000);
         assertTrue(init.isCombatDone());
-        assertEquals("The party won!", init.getOutcome());
+        assertEquals("Combat is over—the party won!", init.getOutcome());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class InitListTest {
 
         playerList.get(1).setDead(true);
         assertTrue(init.isCombatDone());
-        assertEquals("The party lost!", init.getOutcome());
+        assertEquals("Combat is over—the party lost!", init.getOutcome());
     }
 
 }

@@ -88,9 +88,14 @@ public class InputHandler {
         Scanner in = new Scanner(System.in);
         System.out.print(prompt+" ");
         String answer = in.nextLine();
-        if (_COMMANDS_ENABLED && answer.length() > 0 && answer.charAt(0) == '!') {
-            _cmdBundle.runCommand(answer);
-            return getString(prompt);
+        if (answer.length() > 0 && answer.charAt(0) == '!') {
+            if (_COMMANDS_ENABLED) {                
+                _cmdBundle.runCommand(answer);
+                return getString(prompt);
+            } else {
+                System.out.println("Sorry, you can't run a command right now, and only commands can start with '!'.");
+                return getString(prompt);
+            }
         }
         return answer;
     }

@@ -91,16 +91,39 @@ public class SpawnPoint {
             }
 
             for (String alias : aliases) {
-                monsters.add(new Monster(statBlockName, alias, initBonus, dex, 
-                                        hp, autoheal, damageResponses, 
-                                        recharge, spellSlots, perDayActions, 
-                                        passives, legendaryActions, legendaryResistances));
+                if (input.getYesNo("Is "+alias+" a party ally?")) {
+                    monsters.add(new MonsterAlly(statBlockName, alias, initBonus, dex, 
+                                            hp, autoheal, damageResponses, 
+                                            recharge, spellSlots, perDayActions, 
+                                            passives, legendaryActions, legendaryResistances));                    
+                } else {
+                    monsters.add(new Monster(statBlockName, alias, initBonus, dex, 
+                                            hp, autoheal, damageResponses, 
+                                            recharge, spellSlots, perDayActions, 
+                                            passives, legendaryActions, legendaryResistances));
+                }
             }
         }
         if (monsters.size() == 0) {
             throw new IllegalStateException("No monsters found");
         }
         return monsters;
+    }
+
+    public static List<BattleEvent> getBattleEvents() {
+        List<BattleEvent> battleEvents = new ArrayList<>();
+
+        do {
+            String name = input.getString("Name:");
+            String desc = input.getString("Description to print:");
+
+            int initiative = input.getInt("Initiative:");
+            int dex = input.getYesNo("Wins init ties?") ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+
+            battleEvents.add(new BattleEvent(name, dex, initiative, desc));
+        } while (input.getYesNo("Add another?"));
+        
+        return battleEvents;
     }
 
     /**

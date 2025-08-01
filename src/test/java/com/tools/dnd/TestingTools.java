@@ -10,14 +10,14 @@ import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.SpawnPoint;
 
 public class TestingTools {
-    
     static List<Monster> getMonstersNoAliases(String[] monsterNames) throws Exception {
         Map<String, Integer> monsterMap = new HashMap<>();
-        String[] no = new String[monsterNames.length];
+        String[] no = new String[monsterNames.length * 2];
         for (int i = 0; i < monsterNames.length; i++) {
             String mon = monsterNames[i];
             monsterMap.put(mon, 1);
-            no[i] = "N";
+            no[2*i] = "N";
+            no[2*i + 1] = "N";
         }
 
         List<Monster> monsters = new ArrayList<>();
@@ -32,12 +32,13 @@ public class TestingTools {
 
     static List<Monster> getMonstersWithAliases(String[] monsterNames, String[] aliases) throws Exception {
         Map<String, Integer> monsterMap = new HashMap<>();
-        String[] inputs = new String[2 * monsterNames.length];
+        String[] inputs = new String[3 * monsterNames.length];
         for (int i = 0; i < monsterNames.length; i++) {
             String mon = monsterNames[i];
             monsterMap.put(mon, 1);
-            inputs[2*i] = "y";
-            inputs[2*i + 1] = aliases[i];
+            inputs[3*i] = "y";
+            inputs[3*i + 1] = aliases[i];
+            inputs[3*i + 2] = "n";
         }
 
         List<Monster> monsters = new ArrayList<>();

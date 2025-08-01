@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import com.github.stefanbirkner.systemlambda.SystemLambda;
 import com.tools.dnd.core.InitList;
 import com.tools.dnd.creatures.Monster;
-import com.tools.dnd.creatures.SpawnPoint;
 
 public class CommandsTest {
     
@@ -25,10 +22,8 @@ public class CommandsTest {
     @BeforeEach
     void setup() {
         try {
-            SystemLambda.withTextFromSystemIn("n","n").execute(() -> {
-                Map<String, Integer> monsterMap = Map.of("Commoner", 1, "Kraken", 1);
-                initList = new InitList(SpawnPoint.monstersFromName(monsterMap));
-            });
+            String[] simpleMonsters = {"Commoner", "Kraken"};
+            initList = new InitList(TestingTools.getMonstersNoAliases(simpleMonsters));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -36,7 +31,7 @@ public class CommandsTest {
 
     @Test
     void addCommand() throws Exception {
-        _runCommand("!add", "Ghoul","1","N","N");
+        _runCommand("!add", "Ghoul","1","N","N", "N");
         assertNotNull(initList.getMonster("Ghoul 1"));
     }
 
@@ -58,13 +53,14 @@ public class CommandsTest {
     @Test
     void condDelCommand() throws Exception {
         Monster mon = initList.getMonster("Commoner 1");
-        mon.addConditions(new String[] {"frightened, petrified"});
+        mon.addConditions(new String[] {"frightened", "petrified", "charmed"});
         _runCommand("!cond-del", "Commoner 1", "frightened, petrified");
         assertDoesNotThrow(() -> {
             _runCommand("!cond-del", "Commoner 1", "paralyzed");
         });
         assertFalse(mon.hasCondition("frightened"));
         assertFalse(mon.hasCondition("petrified"));
+        assertTrue(mon.hasCondition("charmed"));
     }
 
     @Test
@@ -87,8 +83,8 @@ public class CommandsTest {
 
     @Test
     @Disabled
-    // This test works, but fails when creature's turn finishes
-    // because current legendary actions gets reset (as it should)
+    // This command works, but the test fails because legendary actions
+    // get reset at the start of a creature's turn, so I've disabled it
     void laCommand() throws Exception {
         _runCommand("!la", "Commoner 1", "100");
         _runCommand("!la", "Kraken 1", "-1");
