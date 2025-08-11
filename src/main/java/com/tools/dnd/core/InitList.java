@@ -102,8 +102,9 @@ public class InitList {
     public void addCreature(Creature newCreature) {
         for (int i = 0; i < _initList.size(); i++) {
             Creature current = _initList.get(i);
-            if (current.compareTo(newCreature) > 0) {
+            if (current.compareTo(newCreature) > 0) { // if current goes after newCreature in initiative
                 _initList.add(i, newCreature);
+                return;
             }
         }
         _initList.add(newCreature);

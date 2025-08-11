@@ -14,7 +14,7 @@ import com.tools.dnd.util.Enums.DamageType;
 
 public class AddMonsterToCsv {
 
-    private static InputHandler input;
+    private static InputHandler input = new InputHandler();
 
     // Too complex to write simple unit tests, but I've verified this works
     public static void main(String[] args) throws IOException, CsvException {

@@ -31,7 +31,7 @@ public class CommandsTest {
 
     @Test
     void addCommand() throws Exception {
-        _runCommand("!add", "Ghoul","1","N","N", "N");
+        _runCommand("!add", "Ghoul","1","N","N","N");
         assertNotNull(initList.getMonster("Ghoul 1"));
     }
 
