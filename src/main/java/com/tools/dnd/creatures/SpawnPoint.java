@@ -105,7 +105,7 @@ public class SpawnPoint {
             }
         }
         if (monsters.size() == 0) {
-            throw new IllegalStateException("No monsters found");
+            throw new IllegalStateException("No matching monsters found!");
         }
         return monsters;
     }

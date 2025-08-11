@@ -148,9 +148,22 @@ public class InitList {
         return false;
     }
 
-    public void endEarly() {
+    public void endEarly(boolean isError) {
         _combatDone = true;
-        _outcome = "Combat was ended early";
+        if (isError) {
+            _outcome = "Combat ended because of error";
+            System.out.println();
+            System.out.println("-- ERROR ENCOUNTERED: MONSTERS LISTED BELOW -- ");
+            for (Creature creature : _initList) {
+                if (creature instanceof Monster) {
+                    System.out.println(creature.getNAME());
+                    System.out.println(creature);
+                    System.out.println();
+                }
+            }
+        } else {
+            _outcome = "User ended combat early";
+        }
     }
 
     public void reOrder(String[] newOrder) {

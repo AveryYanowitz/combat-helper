@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.opencsv.exceptions.CsvException;
 import com.tools.dnd.creatures.BattleEvent;
+import com.tools.dnd.creatures.Creature;
 import com.tools.dnd.creatures.Monster;
 import com.tools.dnd.creatures.Player;
 import com.tools.dnd.creatures.SpawnPoint;
@@ -23,9 +24,8 @@ public class CombatRunner {
                 initList.nextTurn();
                 input.getString("Enter any key to continue.");
             } catch (Exception e) {
-                System.out.println("Error encountered!");
+                initList.endEarly(true);
                 e.printStackTrace();
-                continue;
             }
         }
         System.out.println(initList.getOutcome());
@@ -47,6 +47,7 @@ public class CombatRunner {
                                     "Add another monster?");
             return SpawnPoint.monstersFromName(monsterMap);
         } catch (IllegalStateException | IOException | CsvException e) {
+            System.out.println(e.getMessage());
             return getMonsters();
         }
     }

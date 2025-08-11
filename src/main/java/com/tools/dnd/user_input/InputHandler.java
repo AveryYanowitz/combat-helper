@@ -31,7 +31,7 @@ public class InputHandler {
         });
 
         _cmdBundle.register("!end", "End combat early", () -> {
-            _initList.endEarly();
+            _initList.endEarly(false);
             System.out.println(_initList.getOutcome());
         });
 
