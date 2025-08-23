@@ -69,6 +69,14 @@ public class InputHandler {
             Monster mon = _initList.getMonster(getString("Monster Name:"));
             mon.setLegendaryResistances(getInt("New Legendary Resistances:"));            
         });
+
+        _cmdBundle.register("!print", "Print out a monster's current stats", () -> {
+            Monster mon = _initList.getMonster(getString("Monster Name:"));
+            System.out.println();
+            System.out.println(mon);
+            System.out.println();
+        });
+
     }
 
     public boolean getYesNo(String prompt) {

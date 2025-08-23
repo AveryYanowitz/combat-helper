@@ -38,7 +38,7 @@ public class CommandsTest {
     @Test
     void endCommand() throws Exception {
         _runCommand("!end");
-        assertEquals("Combat was ended early", initList.getOutcome());
+        assertEquals("User ended combat early", initList.getOutcome());
     }
 
     @Test
@@ -84,7 +84,8 @@ public class CommandsTest {
     @Test
     @Disabled
     // This command works, but the test fails because legendary actions
-    // get reset at the start of a creature's turn, so I've disabled it
+    // get reset at the start of a creature's turn, so I've disabled it,
+    // but I'm leaving it for posterity
     void laCommand() throws Exception {
         _runCommand("!la", "Commoner 1", "100");
         _runCommand("!la", "Kraken 1", "-1");
