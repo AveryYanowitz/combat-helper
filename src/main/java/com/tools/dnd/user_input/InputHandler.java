@@ -141,7 +141,7 @@ public class InputHandler {
             return sentinelValue;
         }
         try {
-            return Integer.parseInt(answer);
+            return Integer.valueOf(answer);
         } catch (NumberFormatException e) {
             System.out.println("Sorry, couldn't understand that!");
             return getInt(prompt, exception, sentinelValue);

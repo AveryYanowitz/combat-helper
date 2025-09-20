@@ -44,7 +44,7 @@ public class InitList {
         StringBuilder sb = new StringBuilder("Copy-Pastable Initiative:\n\n");
         for (Creature creature : _initList) {
             sb.append("**");
-            sb.append(creature.getNAME());
+            sb.append(creature.getName());
             sb.append("**: ");
             sb.append(creature.getInitiative());
             sb.append("\n");
@@ -72,7 +72,7 @@ public class InitList {
 
     public Creature getCreature(String name) {
         for (Creature creature : _initList) {
-            if (creature.getNAME().equals(name)) {
+            if (creature.getName().equals(name)) {
                 return creature;
             }
         }
@@ -96,7 +96,7 @@ public class InitList {
     }
 
     public String getNameAtIndex(int i) {
-        return _initList.get(i).getNAME();
+        return _initList.get(i).getName();
     }
 
     public void addCreature(Creature newCreature) {
@@ -156,7 +156,7 @@ public class InitList {
             System.out.println("-- ERROR ENCOUNTERED: MONSTERS LISTED BELOW -- ");
             for (Creature creature : _initList) {
                 if (creature instanceof Monster) {
-                    System.out.println(creature.getNAME());
+                    System.out.println(creature.getName());
                     System.out.println(creature);
                     System.out.println();
                 }
@@ -184,13 +184,18 @@ public class InitList {
     }
 
     private void _logDamage(Map<String, String> targetsToDamage) {
+        List<Creature> deadMons = new ArrayList<>();
         for (Creature creature : _initList) {
-            String name = creature.getNAME();
-            if (creature instanceof Monster && targetsToDamage.containsKey(name)) {
+            String name = creature.getName();
+            if (creature instanceof Monster mon && targetsToDamage.containsKey(name)) {
                 String damageStr = targetsToDamage.get(name);
-                ((Monster) creature).changeHp(damageStr);
+                mon.changeHp(damageStr);
+                if (mon.isDead()) {
+                    deadMons.add(mon);
+                }
             }
         }
+        _initList.removeAll(deadMons);
     }
     
 }

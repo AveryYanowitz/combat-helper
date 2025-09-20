@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 public abstract class Creature implements Comparable<Creature> {
     @CsvBindByName(column = "Name", required = true)
-    protected final String _NAME;
+    protected String _name;
     @CsvBindByName(column = "Dex", required = true)
     protected final int _DEX;
     protected final int _initiative;
@@ -27,7 +27,7 @@ public abstract class Creature implements Comparable<Creature> {
     protected boolean _dead;
 
     protected Creature(String name, int dex, int initiative) {
-        this._NAME = name;
+        this._name = name;
         this._DEX = dex;
         this._initiative = initiative;
         this._dead = false;
@@ -36,7 +36,7 @@ public abstract class Creature implements Comparable<Creature> {
 
     @Override
     public String toString() {
-        return _NAME;
+        return _name;
     }
 
     public final void addConditions(String[] conditionsToAdd) {
@@ -48,7 +48,7 @@ public abstract class Creature implements Comparable<Creature> {
     public final void removeConditions(String[] conditionsToRemove) {
         for (String condition : conditionsToRemove) {
             if (!_conditions.remove(condition.strip().toLowerCase())) {
-                System.out.println("Condition "+condition+" not found on monster "+_NAME);
+                System.out.println("Condition "+condition+" not found on monster "+_name);
             }
         }
     }

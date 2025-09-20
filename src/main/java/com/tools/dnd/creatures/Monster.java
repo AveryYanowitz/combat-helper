@@ -64,7 +64,7 @@ public class Monster extends Creature {
             }
             if (_bloodied && _currentHp >= (_MAX_HP / 2)) {
                 _bloodied = false;
-                System.out.println(_NAME+" is no longer bloodied!");
+                System.out.println(_name+" is no longer bloodied!");
             }
             return;
         }
@@ -83,7 +83,7 @@ public class Monster extends Creature {
         if (_currentHp < (_MAX_HP / 2)) {
             if (!_bloodied) {
                 _bloodied = true;
-                System.out.println(_NAME+" is bloodied!");
+                System.out.println(_name+" is bloodied!");
             }
             _checkDeath(); // no need to check death if conditional isn't true
         }
@@ -136,7 +136,7 @@ public class Monster extends Creature {
 
     /** Asks user if monster autoheals */
     private void _autoheal(InputHandler input) {
-        if (_AUTO_HEAL > 0 && input.getYesNo("Does "+_NAME+" autoheal this round?")) {
+        if (_AUTO_HEAL > 0 && input.getYesNo("Does "+_name+" autoheal this round?")) {
             _currentHp += _AUTO_HEAL;
         }
     }
@@ -148,7 +148,7 @@ public class Monster extends Creature {
         if (_currentHp <= 0) {
             _currentHp = 0;
             _dead = true;
-            System.out.println(_NAME+ " died!");
+            System.out.println(_name+ " died!");
         }
         return _dead;
     }
@@ -160,7 +160,7 @@ public class Monster extends Creature {
             // Use up legendary actions, up to the max remaining.
             // Repeat until you get a valid number.
             while (true) {
-                _legendaryActions -= input.getInt("How many legendary actions does "+_NAME+" use?");
+                _legendaryActions -= input.getInt("How many legendary actions does "+_name+" use?");
                 if (_legendaryActions >= 0) {
                     break;
                 }
@@ -168,7 +168,7 @@ public class Monster extends Creature {
                 System.out.println("Not enough legendary actions remaining!");
             }
         }
-        if (_legendaryResistances > 0 && input.getYesNo("Does "+_NAME+" use a legendary resistance?")) {
+        if (_legendaryResistances > 0 && input.getYesNo("Does "+_name+" use a legendary resistance?")) {
             _legendaryActions -= 1;
         }
     }
@@ -195,9 +195,9 @@ public class Monster extends Creature {
     private void _checkRecharge() {
         int d6 = DndUtils.rollDice(1, 6); // 1, 2, 3, 4, 5, or 6
         if (_recharge[d6 - 1]) {
-            System.out.println("> "+_NAME+"'s ability DOES recharge!");
+            System.out.println("> "+_name+"'s ability DOES recharge!");
         } else {
-            System.out.println("> "+_NAME+"'s ability does NOT recharge!");
+            System.out.println("> "+_name+"'s ability does NOT recharge!");
         }
 
     }

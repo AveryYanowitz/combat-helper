@@ -71,7 +71,7 @@ public class CreaturesTest {
     // Tests if list `party` has a field `fieldName` with value `contents`
     private static boolean _nameInParty(List<Player> party, String name) {
         for (Player player : party) {
-            if (player.getNAME().equals(name)) {
+            if (player.getName().equals(name)) {
                 return true;
             }
         }
@@ -86,8 +86,8 @@ public class CreaturesTest {
         Monster commoner = monsters.get(0);
         Monster testMon = monsters.get(1);
         
-        assertEquals("Test Monster 1", testMon.getNAME());
-        assertEquals("Commoner 1", commoner.getNAME());
+        assertEquals("Test Monster 1", testMon.getName());
+        assertEquals("Commoner 1", commoner.getName());
         assertEquals(8, testMon.getDEX());
         assertEquals(10, commoner.getDEX());
         
@@ -131,7 +131,7 @@ public class CreaturesTest {
         SystemLambda.withTextFromSystemIn("Y", "alias").execute(() -> {
             for (Monster mon : aliasedMons) {
                 assertEquals("Test Monster", mon.getStatBlockName());
-                assertEquals("alias", mon.getNAME());
+                assertEquals("alias", mon.getName());
             }
         });        
     }

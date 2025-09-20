@@ -14,7 +14,7 @@ public class BattleEvent extends Creature {
 
     @Override
     public String toString() {
-        return _NAME + ": " + _EVENT_TEXT;
+        return _name + ": " + _EVENT_TEXT;
     }
 
     @Override

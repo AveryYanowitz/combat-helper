@@ -331,3 +331,7 @@ War Priest,0,10,117,,,,0,,4;5;6,"'banishment': 1, ' command': 1, ' dispel magic'
 Nightwalker,4,19,337,,acid; cold; fire; lightning; thunder,necrotic; poison,0,,6,"",Annihilating Aura,0;0
 Test Monster,-2,8,5,cold,fire; acid, lightning, 5, 4;3;3;1, 5;6, "'Foo': 2, 'Bar': 1", Passive abilities go here, 3;2
 "Draconic Shard","1","12","168","","acid;fire","cold;necrotic;poison;psychic","0","","5;6","""""","","3;3"
+"Sahuagin Coral Smasher","1","12","33","","","","0","","","""""","Blood Frenzy","0;0"
+"Sahuagin Priestess","0","11","33","","","","0","4;3;3;0;0;0;0;0;0","","""""","Blood Frenzy","0;0"
+"Sharkjaw Skeleton","0","10","45","bludgeoning","","cold;poison","0","","","""""","","0;0"
+"Hlam","7","24","137","","","poison","0","4;3;2;0;0;0;0;0;0","6","""'Wholeness of Body': 1 ""","Evasion; Deflect Missiles","3;0"

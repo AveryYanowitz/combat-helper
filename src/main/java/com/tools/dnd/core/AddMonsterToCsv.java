@@ -43,6 +43,7 @@ public class AddMonsterToCsv {
             System.out.println("That monster has already been added.");
             return null;
         }
+        existingMonsters.add(name);
 
         csvString[1] = _INPUT.getIntString("Initiative Bonus:");
         csvString[2] = _INPUT.getIntString("Dexterity Score:");
@@ -56,7 +57,7 @@ public class AddMonsterToCsv {
         csvString[10] = _getOtherActions(name);
         csvString[11] = _INPUT.getString("Description of other passives:");
         csvString[12] = _getLegendaries(name);
-
+        
         return csvString;
     }
 
@@ -131,10 +132,13 @@ public class AddMonsterToCsv {
         }
 
         do {
-            actionMap.put(_INPUT.getString("Action name:"), 
-                            _INPUT.getInt("Uses per day (0 to cancel):"));
+            String actionName = _INPUT.getString("Action name:");
+            if (actionName.isBlank()) {
+                break;
+            }
+            actionMap.put(actionName, _INPUT.getInt("Uses per day (0 to cancel):"));
         } while (_INPUT.getYesNo("Add another per-day action?"));
-        return mapToString(actionMap, 0);
+        return _mapToString(actionMap, 0);
 
     }
 
@@ -147,11 +151,10 @@ public class AddMonsterToCsv {
     }
 
 
-    private static <K, V> String mapToString(Map<K,V> map, V cancelValue) {
-        StringBuilder mapString = new StringBuilder();
-        mapString.append("\"");
+    private static <K, V> String _mapToString(Map<K,V> map, V ignoreIfValueEquals) {
+        StringBuilder mapString = new StringBuilder("\"");
         for (var entry : map.entrySet()) {
-            if (entry.getValue().equals(cancelValue)) {
+            if (entry.getValue().equals(ignoreIfValueEquals)) {
                 continue;
             }
             mapString.append("'");

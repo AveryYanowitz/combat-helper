@@ -33,17 +33,17 @@ public class Player extends Creature {
     }
 
     private boolean _survived(InputHandler input) {
-        if (_dead && input.getYesNo("Is "+_NAME+" still dead?")) {
+        if (_dead && input.getYesNo("Is "+_name+" still dead?")) {
             return false;
-        } else if (!_dead && input.getYesNo("Is "+_NAME+" dead?")) {
+        } else if (!_dead && input.getYesNo("Is "+_name+" dead?")) {
             _dying = false;
             _dead = true;
             return false;
         }
         
-        if (_dying && input.getYesNo("Has "+_NAME+" been healed?")) {            
+        if (_dying && input.getYesNo("Has "+_name+" been healed?")) {            
             _dying = false;
-        } else if (!_dying && input.getYesNo("Is "+_NAME+" at 0 HP?")) {
+        } else if (!_dying && input.getYesNo("Is "+_name+" at 0 HP?")) {
             _dying = true;
         }
 

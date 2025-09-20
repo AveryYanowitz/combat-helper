@@ -60,7 +60,7 @@ public class InitListTest {
         InitList initList = new InitList(List.of(c1, c2, c3, c4, c5, c6));
         for (int i = 1; i <= 6; i++) {
             String name = "c" + i;
-            assertEquals(name, initList.nextTurn().getNAME());
+            assertEquals(name, initList.nextTurn().getName());
         }
     }
 
